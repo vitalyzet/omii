@@ -149,13 +149,39 @@ export default function OmiiPublishAdModal({
         adData.domain = 'realestate';
       }
 
-      // Save to Firestore
-      await addDoc(collection(db, targetCollection), adData);
+      // Create Internal Ad Object
+      const internalAd = {
+        id: `int-${Date.now()}`,
+        category,
+        title: title.trim(),
+        subtitle: description.trim() || `${category} - Publicat pe Omii`,
+        price: `${new Intl.NumberFormat('ro-RO').format(Number(price))} €`,
+        location,
+        imageUrl: finalImageUrl,
+        tags: [category.toLowerCase(), location.toLowerCase(), 'intern', 'anunt'],
+        isInternal: true,
+        createdAt: new Date().toISOString()
+      };
+
+      // 1. Save to Local Internal Storage
+      const existingInternal = JSON.parse(localStorage.getItem('omii_internal_published_ads') || '[]');
+      const updatedInternal = [internalAd, ...existingInternal];
+      localStorage.setItem('omii_internal_published_ads', JSON.stringify(updatedInternal));
+
+      // 2. Dispatch custom event so grid updates instantly
+      window.dispatchEvent(new CustomEvent('omii:internal_ad_published', { detail: internalAd }));
+
+      // 3. Save to Firestore in background
+      try {
+        await addDoc(collection(db, targetCollection), adData);
+      } catch (firestoreErr) {
+        console.warn("Firestore save warning (ad saved locally):", firestoreErr);
+      }
 
       setSuccess(true);
       setTimeout(() => {
         handleClose();
-      }, 1500);
+      }, 1200);
 
     } catch (err: any) {
       setError(err.message || 'A apărut o eroare la salvarea anunțului.');

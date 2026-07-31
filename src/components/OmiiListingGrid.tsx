@@ -74,6 +74,13 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
   const t = TRANSLATIONS[lang] || TRANSLATIONS.ro;
   const [searchQuery, setSearchQuery] = useState('');
   const [realListings, setRealListings] = useState<OmiiListingItem[]>([]);
+  const [internalListings, setInternalListings] = useState<any[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem('omii_internal_published_ads') || '[]');
+    } catch {
+      return [];
+    }
+  });
 
   // Automatically fetch and listen to real published ads from Firestore
   useEffect(() => {
@@ -83,9 +90,20 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
     return () => unsubscribe();
   }, []);
 
+  // Listen to new internal ad publish events
+  useEffect(() => {
+    const handleInternalAd = (e: any) => {
+      if (e.detail) {
+        setInternalListings(prev => [e.detail, ...prev]);
+      }
+    };
+    window.addEventListener('omii:internal_ad_published', handleInternalAd);
+    return () => window.removeEventListener('omii:internal_ad_published', handleInternalAd);
+  }, []);
+
   const allListings = useMemo(() => {
-    return [...realListings, ...MOCK_LISTINGS];
-  }, [realListings]);
+    return [...internalListings, ...realListings, ...MOCK_LISTINGS];
+  }, [internalListings, realListings]);
 
   // Category translation resolver
   const categoryDisplayName = useMemo(() => {
