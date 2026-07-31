@@ -34,6 +34,7 @@ import OmiiUserPanelPage from './components/OmiiUserPanelPage'
 import OmiiAdminPanelPage from './components/OmiiAdminPanelPage'
 import OmiiPublishAdPage from './components/OmiiPublishAdPage'
 import OmiiListingDetailPage from './components/OmiiListingDetailPage'
+import OmiiAutoDetailPage from './components/OmiiAutoDetailPage'
 
 function App() {
   // Global states for layout, view modes, and active page
@@ -386,11 +387,19 @@ function App() {
           lang={currentLang}
         />
       ) : activePage === 'detail' || selectedListing ? (
-        <OmiiListingDetailPage
-          listing={selectedListing}
-          onBackToHome={handleGoHome}
-          lang={currentLang}
-        />
+        (selectedListing?.category === 'Auto & Moto' || selectedListing?.category === 'Vehículos' || selectedListing?.category === 'anuncios_auto') ? (
+          <OmiiAutoDetailPage
+            listing={selectedListing}
+            onBackToHome={handleGoHome}
+            lang={currentLang}
+          />
+        ) : (
+          <OmiiListingDetailPage
+            listing={selectedListing}
+            onBackToHome={handleGoHome}
+            lang={currentLang}
+          />
+        )
       ) : pageDesign === 'pro' ? (
         <ProLayout key={homeResetKey} lang={currentLang} onSelectListing={(item) => { setSelectedListing(item); setActivePage('detail'); }} />
       ) : (
