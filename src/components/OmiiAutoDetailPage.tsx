@@ -142,14 +142,40 @@ export default function OmiiAutoDetailPage({
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         
-        {/* Top Back Navigation Bar */}
-        <button
-          onClick={onBackToHome}
-          className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-gray-700 hover:text-gray-900 transition-colors cursor-pointer mb-6"
-        >
-          <ArrowLeft size={18} />
-          <span>{lang === 'es' ? 'Volver a la lista de resultados de la búsqueda' : 'Înapoi la lista de rezultate'}</span>
-        </button>
+        {/* Top Breadcrumbs & Action Bar from imoob */}
+        <div className="flex items-center justify-between mb-6 flex-wrap gap-4">
+          <div className="flex items-center gap-2 text-xs font-semibold text-gray-500">
+            <button
+              onClick={onBackToHome}
+              className="inline-flex items-center gap-1.5 text-gray-700 hover:text-gray-900 transition-colors cursor-pointer"
+            >
+              <ArrowLeft size={16} />
+              <span>{lang === 'es' ? 'Volver a resultados' : 'Înapoi la rezultate'}</span>
+            </button>
+            <span className="text-gray-300">/</span>
+            <span className="text-gray-400">vindu24</span>
+            <span className="text-gray-300">/</span>
+            <span className="text-[#139E69] font-bold">Auto & Moto</span>
+            <span className="text-gray-300">/</span>
+            <span className="text-gray-600 truncate max-w-[200px]">{displayTitle}</span>
+          </div>
+
+          {/* Live Viewers & Favorites Badge from imoob */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 bg-[#F0F9FF] border border-blue-100 px-3 py-1.5 rounded-xl text-xs font-extrabold text-[#0C4A6E]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
+              </span>
+              <span>15 {lang === 'es' ? 'viendo ahora' : 'văd acum'}</span>
+            </div>
+
+            <div className="flex items-center gap-1.5 bg-[#FEF2F2] border border-rose-100 px-3 py-1.5 rounded-xl text-xs font-extrabold text-[#9F1239]">
+              <Heart size={13} fill="#FB7185" className="text-rose-500" />
+              <span>24 {lang === 'es' ? 'guardados' : 'favorite'}</span>
+            </div>
+          </div>
+        </div>
 
         {/* 2-Column Grid Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -621,19 +647,25 @@ export default function OmiiAutoDetailPage({
                 <span>{lang === 'es' ? 'Enviar mensaje' : 'Trimite mesaj'}</span>
               </button>
 
-              {/* Secondary Action Button: Mostrar número */}
-              <button
-                type="button"
-                onClick={() => setShowPhoneNumber(!showPhoneNumber)}
-                className="w-full py-3 px-4 bg-white hover:bg-blue-50 border-2 border-[#2563EB] text-[#2563EB] font-extrabold text-sm rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
+              {/* imoob Green Call Agent Button */}
+              <a 
+                href="tel:+40733987654"
+                className="w-full py-3.5 px-4 bg-[#22c55e] hover:bg-[#16a34a] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
               >
                 <Phone size={18} />
-                <span>
-                  {showPhoneNumber 
-                    ? '+40 733 987 654' 
-                    : (lang === 'es' ? 'Mostrar número' : 'Arată numărul')}
-                </span>
-              </button>
+                <span>{lang === 'es' ? 'Llamar al vendedor' : 'Apelează vânzătorul'}</span>
+              </a>
+
+              {/* imoob Black WhatsApp Chat Button with Orange Notification Dot */}
+              <a 
+                href="https://wa.me/40733987654"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-3.5 px-4 bg-black hover:bg-stone-800 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 relative shadow-md"
+              >
+                <span>Chat WhatsApp</span>
+                <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#f97316] rounded-full border-2 border-white shadow-sm"></div>
+              </a>
 
             </div>
           </div>
