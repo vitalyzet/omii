@@ -12,6 +12,7 @@ export interface OmiiListingItem {
   tags?: string[];
   createdAt?: any;
   isRealFirestoreAd?: boolean;
+  [key: string]: any;
 }
 
 // Map Firestore ad document to Omii listing format
@@ -90,6 +91,7 @@ const mapFirestoreDocToOmii = (doc: any, collectionName: string): OmiiListingIte
   ].filter(Boolean);
 
   return {
+    ...d,
     id,
     category,
     title,
@@ -97,6 +99,7 @@ const mapFirestoreDocToOmii = (doc: any, collectionName: string): OmiiListingIte
     price: priceStr,
     location,
     imageUrl,
+    images: Array.isArray(d.images) && d.images.length > 0 ? d.images : (Array.isArray(d.photos) ? d.photos : []),
     tags,
     createdAt: d.createdAt,
     isRealFirestoreAd: true
