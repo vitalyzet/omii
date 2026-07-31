@@ -1,10 +1,11 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Search, X, FilterX } from 'lucide-react';
 import OmiiListingCard from './OmiiListingCard';
 import OmiiListingClassicCard from './OmiiListingClassicCard';
 import OmiiListingListCard from './OmiiListingListCard';
 import OmiiListingProCard from './OmiiListingProCard';
 import { TRANSLATIONS, Language } from '../translations';
+import { subscribeToRealListings, OmiiListingItem } from '../services/firebaseListings';
 
 const MOCK_LISTINGS = [
   // Auto & Moto (Vindu24 Auto Catalog)
@@ -72,6 +73,19 @@ interface OmiiListingGridProps {
 export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', lang = 'ro' }: OmiiListingGridProps) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.ro;
   const [searchQuery, setSearchQuery] = useState('');
+  const [realListings, setRealListings] = useState<OmiiListingItem[]>([]);
+
+  // Automatically fetch and listen to real published ads from Firestore
+  useEffect(() => {
+    const unsubscribe = subscribeToRealListings((newListings) => {
+      setRealListings(newListings);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  const allListings = useMemo(() => {
+    return [...realListings, ...MOCK_LISTINGS];
+  }, [realListings]);
 
   // Category translation resolver
   const categoryDisplayName = useMemo(() => {
@@ -84,13 +98,13 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
   const filteredListings = useMemo(() => {
     // First filter by category if selected with smart key & accent-insensitive matching
     let baseListings = selectedCategory
-      ? MOCK_LISTINGS.filter(listing => 
+      ? allListings.filter(listing => 
           listing.category === selectedCategory ||
           listing.category === categoryDisplayName ||
           normalizeText(listing.category) === normalizeText(selectedCategory) ||
           normalizeText(listing.category) === normalizeText(categoryDisplayName)
         )
-      : MOCK_LISTINGS;
+      : allListings;
 
     if (!searchQuery.trim()) return baseListings;
 
