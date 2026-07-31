@@ -21,7 +21,8 @@ import {
   ChevronRight,
   Heart,
   Share2,
-  X
+  X,
+  Gauge
 } from 'lucide-react';
 import { Language } from '../translations';
 
@@ -33,12 +34,16 @@ interface OmiiAutoDetailPageProps {
     price: string;
     location: string;
     imageUrl: string;
+    images?: string[];
+    description?: string;
     category?: string;
     marca?: string;
     model?: string;
     an?: number | string;
+    year?: number | string;
     combustibil?: string;
     kilometros?: number | string;
+    condition?: string;
   } | null;
   onBackToHome: () => void;
   lang?: Language;
@@ -69,7 +74,10 @@ export default function OmiiAutoDetailPage({
   const displayLocation = listing?.location || 'București, Nord';
   const mainImage = listing?.imageUrl || AUTO_GALLERY_IMAGES[0];
 
-  const galleryList = [mainImage, ...AUTO_GALLERY_IMAGES.slice(1)];
+  // Load all images if they exist, otherwise fallback to mock gallery
+  const galleryList = listing?.images && listing.images.length > 0 
+    ? listing.images 
+    : [mainImage, ...AUTO_GALLERY_IMAGES.slice(1)];
 
   const handlePrevImage = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -301,32 +309,31 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
-                    <Clock size={20} />
+                  <div className="w-10 h-10 rounded-xl bg-[#f0f9ff] text-[#38bdf8] flex items-center justify-center shrink-0">
+                    <Calendar size={20} />
                   </div>
                   <div>
-                    <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Potencia' : 'Putere'}</p>
-                    <p className="text-base font-extrabold text-gray-900">375 kW (510 cv)</p>
+                    <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Año' : 'An'}</p>
+                    <p className="text-base font-extrabold text-gray-900">{listing?.year || listing?.an || '2023'}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fdf4ff] text-[#e879f9] flex items-center justify-center shrink-0">
+                    <Gauge size={20} />
+                  </div>
+                  <div>
+                    <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Potencia' : 'Putere'}</p>
+                    <p className="text-base font-extrabold text-gray-900">510 CP</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-[#ecfdf5] text-[#34d399] flex items-center justify-center shrink-0">
                     <Settings size={20} />
                   </div>
                   <div>
                     <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Transmisión' : 'Transmisie'}</p>
-                    <p className="text-base font-extrabold text-gray-900">Automático</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
-                    <Calendar size={20} />
-                  </div>
-                  <div>
-                    <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Primer registro' : 'An fabricație'}</p>
-                    <p className="text-base font-extrabold text-gray-900">{listing?.an ? `01/${listing.an}` : '10/2015'}</p>
                   </div>
                 </div>
 

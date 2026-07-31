@@ -299,6 +299,12 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
         price: `${new Intl.NumberFormat('ro-RO').format(Number(price))} ${currency === 'EUR' ? '€' : currency}`,
         location: locationInput,
         imageUrl: mainImage,
+        images: allImages.length > 0 ? allImages : [mainImage],
+        description: description.trim(),
+        year: Number(year),
+        combustibil,
+        kilometros: Number(kilometros),
+        condition,
         tags: [targetCategory.toLowerCase(), locationInput.toLowerCase(), 'intern', 'anunt'],
         isInternal: true,
         createdAt: new Date().toISOString()

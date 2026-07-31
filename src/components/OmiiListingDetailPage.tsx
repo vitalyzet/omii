@@ -79,7 +79,10 @@ export default function OmiiListingDetailPage({
   const displayLocation = listing?.location || (isAuto ? 'București, Nord' : 'București');
   const mainImage = listing?.imageUrl || GALLERY_IMAGES[0];
 
-  const galleryList = [mainImage, ...GALLERY_IMAGES.slice(1)];
+  // Load all images if they exist, otherwise fallback to mock gallery
+  const galleryList: string[] = (listing as any)?.images && (listing as any).images.length > 0 
+    ? ((listing as any).images as string[]) 
+    : [mainImage, ...GALLERY_IMAGES.slice(1)];
 
   const handlePrevImage = (e?: React.MouseEvent) => {
     e?.stopPropagation();
