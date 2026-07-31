@@ -166,41 +166,70 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
   };
 
   return (
-    <div className="min-h-screen bg-white py-6 px-4 max-w-3xl mx-auto font-sans">
-      {/* Top Header & Back Button */}
-      <div className="flex items-center justify-between pb-4 border-b border-gray-200 mb-6">
+    <div className="min-h-screen bg-gray-50/60 py-8 px-4 sm:px-6 max-w-4xl mx-auto font-sans">
+      
+      {/* Top Navigation Bar */}
+      <div className="flex items-center justify-between mb-6">
         <button
           onClick={onBackToHome}
-          className="flex items-center gap-2 text-sm font-semibold text-gray-600 hover:text-gray-900 cursor-pointer"
+          className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-gray-100 text-gray-700 rounded-full font-extrabold text-xs border border-gray-200/80 shadow-2xs transition-all cursor-pointer"
         >
-          <ArrowLeft size={18} />
-          <span>{lang === 'ro' ? 'Înapoi' : 'Volver'}</span>
+          <ArrowLeft size={16} />
+          <span>{lang === 'ro' ? 'Înapoi la pagina principală' : 'Volver al inicio'}</span>
         </button>
 
-        <h1 className="text-lg font-bold text-gray-900">
-          {lang === 'ro' ? 'Publică Anunț Nou' : 'Publicar Anuncio Nuevo'}
-        </h1>
+        <div className="flex items-center gap-2 text-xs font-extrabold text-blue-700 bg-blue-50 px-3.5 py-1.5 rounded-full border border-blue-100/80">
+          <Sparkles size={14} className="text-blue-600" />
+          <span>Omii Ad Publisher</span>
+        </div>
       </div>
 
-      {/* Main Form Container */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-6">
+      {/* Main Card Container */}
+      <div className="bg-white rounded-2xl border border-gray-200/90 shadow-sm overflow-hidden space-y-0">
         
-        {/* Step Indicator */}
-        <div className="flex items-center gap-4 text-xs font-semibold text-gray-500 pb-4 border-b border-gray-100">
-          <button
-            onClick={() => setStep(1)}
-            className={`cursor-pointer ${step === 1 ? 'text-blue-600 font-bold border-b-2 border-blue-600 pb-1' : ''}`}
-          >
-            1. {lang === 'ro' ? 'Categorie' : 'Categoría'}
-          </button>
-          <span>/</span>
-          <button
-            onClick={() => setStep(2)}
-            className={`cursor-pointer ${step === 2 ? 'text-blue-600 font-bold border-b-2 border-blue-600 pb-1' : ''}`}
-          >
-            2. {lang === 'ro' ? 'Detalii Anunț' : 'Detalles'}
-          </button>
+        {/* Soft Elegant Header Banner */}
+        <div className="bg-gradient-to-r from-blue-50/90 via-indigo-50/40 to-slate-50 border-b border-gray-100 p-6 sm:p-8">
+          <h1 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
+            {lang === 'ro' ? 'Publică un Anunț Nou pe Omii' : 'Publicar un Nuevo Anuncio en Omii'}
+          </h1>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1 font-medium">
+            {lang === 'ro' 
+              ? 'Completează formularul și anunțul tău va fi vizibil instantaneu.' 
+              : 'Completa el formulario y tu anuncio será visible al instante.'}
+          </p>
+
+          {/* Progress Step Pills */}
+          <div className="flex items-center gap-3 mt-6 pt-4 border-t border-gray-200/60 text-xs font-bold">
+            <button
+              onClick={() => setStep(1)}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                step === 1 
+                  ? 'bg-blue-600 text-white shadow-2xs font-extrabold' 
+                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+              }`}
+            >
+              <span className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">1</span>
+              <span>{lang === 'ro' ? 'Pasul 1: Categorie' : 'Paso 1: Categoría'}</span>
+            </button>
+
+            <span className="text-gray-300">→</span>
+
+            <button
+              onClick={() => setStep(2)}
+              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full transition-all cursor-pointer ${
+                step === 2 
+                  ? 'bg-blue-600 text-white shadow-2xs font-extrabold' 
+                  : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+              }`}
+            >
+              <span className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">2</span>
+              <span>{lang === 'ro' ? 'Pasul 2: Detalii Anunț' : 'Paso 2: Detalles'}</span>
+            </button>
+          </div>
         </div>
+
+        {/* Content Body */}
+        <div className="p-6 sm:p-8">
             {success ? (
               <div className="py-12 text-center space-y-4 flex flex-col items-center justify-center">
                 <div className="w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-md">
@@ -463,6 +492,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                 )}
               </div>
             )}
+        </div>
       </div>
     </div>
   );
