@@ -23,7 +23,9 @@ import {
   Share2,
   X,
   Gauge,
-  CheckCircle
+  CheckCircle,
+  Star,
+  MessageSquare
 } from 'lucide-react';
 import { Language } from '../translations';
 
@@ -386,10 +388,10 @@ export default function OmiiAutoDetailPage({
           </div>
 
           {/* RIGHT STICKY ACTION COLUMN (4 Cols) */}
-          <div className="lg:col-span-4 sticky top-6">
+          <div className="lg:col-span-4 sticky top-6 space-y-6">
+            
+            {/* 1. Price Box */}
             <div className="bg-white rounded-2xl p-6 sm:p-7 border border-gray-200/90 shadow-md space-y-5">
-              
-              {/* Price */}
               <div>
                 <h2 className="text-3xl font-black text-gray-900 tracking-tight">
                   {displayPrice}
@@ -411,36 +413,74 @@ export default function OmiiAutoDetailPage({
                   {lang === 'es' ? 'Comparación de precio' : 'Comparație de preț'}
                 </span>
               </div>
+            </div>
 
-              {/* Primary Action Button: Enviar mensaje */}
-              <button
-                type="button"
-                onClick={() => alert(lang === 'es' ? 'Mensaje enviado al vendedor.' : 'Mesaj trimis vânzătorului.')}
-                className="w-full py-3.5 px-4 bg-[#108474] hover:bg-[#0e7063] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
-              >
-                <Mail size={18} />
-                <span>{lang === 'es' ? 'Enviar mensaje' : 'Trimite mesaj'}</span>
-              </button>
+            {/* 2. Seller Box (The new design) */}
+            <div className="bg-white rounded-[24px] p-6 sm:p-7 border border-gray-200/80 shadow-md flex flex-col">
+              
+              {/* Top Badge */}
+              <div className="bg-[#f0f9ff] text-[#0369a1] px-3.5 py-1.5 rounded-lg inline-flex items-center gap-2 self-start mb-6">
+                <User size={16} strokeWidth={2.5} />
+                <span className="text-xs font-extrabold tracking-wide uppercase">
+                  {lang === 'es' ? 'Vendedor particular' : 'Vânzător particular'}
+                </span>
+              </div>
 
-              {/* imoob Green Call Agent Button */}
-              <a 
-                href="tel:+40733987654"
-                className="w-full py-3.5 px-4 bg-[#008060] hover:bg-[#006c51] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
-              >
-                <Phone size={18} />
-                <span>{lang === 'es' ? 'Llamar al vendedor' : 'Apelează vânzătorul'}</span>
-              </a>
+              {/* Seller Info Row */}
+              <div className="flex items-start gap-4 mb-6">
+                {/* Avatar */}
+                <div className="w-16 h-16 rounded-2xl bg-[#e0f2fe] flex items-center justify-center shrink-0">
+                  <User size={28} className="text-[#0284c7]" strokeWidth={2} />
+                </div>
+                
+                {/* Info */}
+                <div className="flex flex-col pt-0.5">
+                  <h4 className="text-[19px] font-black text-gray-900 leading-tight">Alexandru B.</h4>
+                  
+                  <div className="flex items-center flex-wrap gap-x-3 gap-y-1 mt-1.5 text-xs">
+                    <span className="flex items-center gap-1 text-[#16a34a] font-bold">
+                      <ShieldCheck size={14} strokeWidth={2.5} /> {lang === 'es' ? 'Verificado' : 'Verificat'}
+                    </span>
+                    <span className="flex items-center gap-1 text-gray-400 font-semibold">
+                      <Clock size={14} /> {lang === 'es' ? 'En omii desde 2026' : 'Pe omii din 2026'}
+                    </span>
+                  </div>
 
-              {/* imoob Black WhatsApp Chat Button with Orange Notification Dot */}
-              <a 
-                href="https://wa.me/40733987654"
-                target="_blank"
-                rel="noreferrer"
-                className="w-full py-3.5 px-4 bg-black hover:bg-stone-800 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2 relative shadow-md"
-              >
-                <span>Chat WhatsApp</span>
-                <div className="absolute -top-1.5 -right-1.5 w-3.5 h-3.5 bg-[#f97316] rounded-full border-2 border-white shadow-sm"></div>
-              </a>
+                  <div className="flex items-center gap-1.5 mt-2">
+                    <div className="flex items-center text-[#fbbf24]">
+                      <Star size={14} className="fill-current" />
+                      <Star size={14} className="fill-current" />
+                      <Star size={14} className="fill-current" />
+                      <Star size={14} className="fill-current" />
+                      <Star size={14} className="fill-current" />
+                    </div>
+                    <span className="text-xs font-black text-gray-900 ml-1">5.0 (3)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <hr className="border-gray-100 mb-6" />
+
+              {/* Action Buttons */}
+              <div className="space-y-3.5">
+                <button
+                  type="button"
+                  className="w-full py-4 px-4 bg-[#0ea5e9] hover:bg-[#0284c7] active:scale-[0.99] text-white font-extrabold text-[15px] rounded-2xl transition-all cursor-pointer flex items-center justify-center gap-2.5 shadow-sm"
+                >
+                  <Phone size={20} />
+                  <span>{lang === 'es' ? 'Mostrar teléfono' : 'Afișează telefonul'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => alert(lang === 'es' ? 'Mensaje enviado al vendedor.' : 'Mesaj trimis vânzătorului.')}
+                  className="w-full py-4 px-4 bg-white hover:bg-gray-50 active:scale-[0.99] text-[#1e293b] font-extrabold text-[15px] rounded-2xl transition-all cursor-pointer border-2 border-gray-100 flex items-center justify-center gap-2.5"
+                >
+                  <MessageSquare size={20} />
+                  <span>{lang === 'es' ? 'Enviar mensaje' : 'Trimite mesaj'}</span>
+                </button>
+              </div>
 
             </div>
           </div>
