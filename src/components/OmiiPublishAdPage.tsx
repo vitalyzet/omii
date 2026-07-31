@@ -234,9 +234,12 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
 
       const uploadedUrls = await Promise.all(uploadPromises);
       setImages(prev => [...prev, ...uploadedUrls]);
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error uploading to R2:', err);
-      setError(lang === 'es' ? 'Error al subir la imagen. Por favor, revisa tu conexión o las claves R2 (CORS/Credentials).' : 'Eroare la încărcarea imaginii. Verificați setările R2 (CORS/Credentials).');
+      const rawError = err?.message || err?.toString() || 'Unknown error';
+      setError(lang === 'es' 
+        ? `Error al subir la imagen. Detalles: ${rawError}` 
+        : `Eroare la încărcarea imaginii. Detalii: ${rawError}`);
     } finally {
       setIsUploading(false);
       if (fileInputRef.current) {
