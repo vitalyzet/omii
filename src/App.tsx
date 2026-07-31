@@ -33,12 +33,14 @@ import OmiiFooter from './components/OmiiFooter'
 import OmiiUserPanelPage from './components/OmiiUserPanelPage'
 import OmiiAdminPanelPage from './components/OmiiAdminPanelPage'
 import OmiiPublishAdPage from './components/OmiiPublishAdPage'
+import OmiiListingDetailPage from './components/OmiiListingDetailPage'
 
 function App() {
   // Global states for layout, view modes, and active page
   const [pageDesign, setPageDesign] = useState<'classic' | 'pro'>('classic');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [activePage, setActivePage] = useState<'home' | 'panel' | 'admin' | 'publish'>('home');
+  const [activePage, setActivePage] = useState<'home' | 'panel' | 'admin' | 'publish' | 'detail'>('home');
+  const [selectedListing, setSelectedListing] = useState<any | null>(null);
   const [userAvatar, setUserAvatar] = useState('/an74.png');
   const [currentLang, setCurrentLang] = useState<'ro' | 'es'>('ro');
   
@@ -68,6 +70,7 @@ function App() {
   }, []);
 
   const handleGoHome = () => {
+    setSelectedListing(null);
     setActivePage('home');
     setHomeResetKey(prev => prev + 1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -366,6 +369,12 @@ function App() {
         />
       ) : activePage === 'publish' ? (
         <OmiiPublishAdPage
+          onBackToHome={handleGoHome}
+          lang={currentLang}
+        />
+      ) : activePage === 'detail' || selectedListing ? (
+        <OmiiListingDetailPage
+          listing={selectedListing}
           onBackToHome={handleGoHome}
           lang={currentLang}
         />

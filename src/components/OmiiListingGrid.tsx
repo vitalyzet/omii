@@ -68,9 +68,10 @@ interface OmiiListingGridProps {
   selectedCategory: string | null;
   viewMode?: 'grid' | 'list' | 'pro';
   lang?: Language;
+  onSelectListing?: (listing: any) => void;
 }
 
-export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', lang = 'ro' }: OmiiListingGridProps) {
+export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', lang = 'ro', onSelectListing }: OmiiListingGridProps) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.ro;
   const [searchQuery, setSearchQuery] = useState('');
   const [realListings, setRealListings] = useState<OmiiListingItem[]>([]);
@@ -203,16 +204,29 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
       <div className={wrapperClass}>
         {filteredListings.length > 0 ? (
           filteredListings.map((listing) => {
-            if (viewMode === 'grid') {
-              return <OmiiListingClassicCard key={listing.id} {...listing} />;
-            }
-            if (viewMode === 'list') {
-              return <OmiiListingListCard key={listing.id} {...listing} />;
-            }
-            if (viewMode === 'pro') {
-              return <OmiiListingProCard key={listing.id} {...listing} />;
-            }
-            return <OmiiListingCard key={listing.id} {...listing} />;
+            return (
+              <div 
+                key={listing.id} 
+                onClick={() => {
+                  if (onSelectListing) {
+                    onSelectListing(listing);
+                  } else {
+                    window.dispatchEvent(new CustomEvent('omii:select_listing', { detail: listing }));
+                  }
+                }}
+                className="cursor-pointer"
+              >
+                {viewMode === 'grid' ? (
+                  <OmiiListingClassicCard {...listing} />
+                ) : viewMode === 'list' ? (
+                  <OmiiListingListCard {...listing} />
+                ) : viewMode === 'pro' ? (
+                  <OmiiListingProCard {...listing} />
+                ) : (
+                  <OmiiListingCard {...listing} />
+                )}
+              </div>
+            );
           })
         ) : (
           <div className="col-span-full py-12 text-center bg-white rounded-2xl border border-gray-200/80 p-8 shadow-xs">
