@@ -32,6 +32,11 @@ interface OmiiListingDetailPageProps {
     location: string;
     imageUrl: string;
     category?: string;
+    marca?: string;
+    model?: string;
+    an?: number | string;
+    combustibil?: string;
+    kilometros?: number | string;
   } | null;
   onBackToHome: () => void;
   lang?: Language;
@@ -56,10 +61,17 @@ export default function OmiiListingDetailPage({
   const [showMoreAmenities, setShowMoreAmenities] = useState(false);
   const [showPhoneNumber, setShowPhoneNumber] = useState(false);
 
-  // Defaults based on screenshot
-  const displayTitle = listing?.title || 'Apartament modern în centru';
-  const displayPrice = listing?.price || '350.000 €';
-  const displayLocation = listing?.location || 'București';
+  const isRealEstate = !listing?.category || 
+    listing.category === 'Imobiliare' || 
+    listing.category === 'Inmuebles' || 
+    listing.category === 'anuncios';
+
+  const isAuto = listing?.category === 'Auto & Moto' || listing?.category === 'Vehículos' || listing?.category === 'anuncios_auto';
+
+  // Defaults based on category
+  const displayTitle = listing?.title || (isAuto ? 'BMW M3 Competition xDrive 2023' : 'Apartament modern în centru');
+  const displayPrice = listing?.price || (isAuto ? '79.900 €' : '350.000 €');
+  const displayLocation = listing?.location || (isAuto ? 'București, Nord' : 'București');
   const mainImage = listing?.imageUrl || GALLERY_IMAGES[0];
 
   const galleryList = [mainImage, ...GALLERY_IMAGES.slice(1)];
@@ -131,65 +143,131 @@ export default function OmiiListingDetailPage({
 
             {/* 2. QUICK FEATURES GRID CARD (Icons + Values) */}
             <div className="bg-white rounded-2xl p-6 sm:p-7 border border-gray-200/80 shadow-xs grid grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                  <Home size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Tipo' : 'Tip'}</p>
-                  <p className="text-sm font-extrabold text-gray-900">Apartamente</p>
-                </div>
-              </div>
+              {isAuto ? (
+                <>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                      🏎️
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">Marcă</p>
+                      <p className="text-sm font-extrabold text-gray-900">{listing?.marca || 'BMW'}</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                  <Maximize size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Superficie' : 'Suprafață'}</p>
-                  <p className="text-sm font-extrabold text-gray-900">120 m²</p>
-                </div>
-              </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                      🚗
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">Model</p>
+                      <p className="text-sm font-extrabold text-gray-900">{listing?.model || 'M3 Competition'}</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                  <Bed size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Habitaciones' : 'Camere'}</p>
-                  <p className="text-sm font-extrabold text-gray-900">3</p>
-                </div>
-              </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                      📅
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">Año / An</p>
+                      <p className="text-sm font-extrabold text-gray-900">{listing?.an || '2023'}</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                  <Bath size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Baños' : 'Băi'}</p>
-                  <p className="text-sm font-extrabold text-gray-900">2</p>
-                </div>
-              </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                      ⛽
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">Combustible</p>
+                      <p className="text-sm font-extrabold text-gray-900">{listing?.combustibil || 'Benzină'}</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Ciudad' : 'Oraș'}</p>
-                  <p className="text-sm font-extrabold text-gray-900">{displayLocation}</p>
-                </div>
-              </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                      🛣️
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">Kilómetros</p>
+                      <p className="text-sm font-extrabold text-gray-900">{listing?.kilometros || '24.500'} km</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
-                  <Globe size={20} />
-                </div>
-                <div>
-                  <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'País' : 'Țară'}</p>
-                  <p className="text-sm font-extrabold text-gray-900">RO</p>
-                </div>
-              </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                      📍
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">Ciudad</p>
+                      <p className="text-sm font-extrabold text-gray-900">{displayLocation}</p>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <Home size={20} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Tipo' : 'Tip'}</p>
+                      <p className="text-sm font-extrabold text-gray-900">Apartamente</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <Maximize size={20} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Superficie' : 'Suprafață'}</p>
+                      <p className="text-sm font-extrabold text-gray-900">120 m²</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <Bed size={20} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Habitaciones' : 'Camere'}</p>
+                      <p className="text-sm font-extrabold text-gray-900">3</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <Bath size={20} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Baños' : 'Băi'}</p>
+                      <p className="text-sm font-extrabold text-gray-900">2</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <MapPin size={20} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'Ciudad' : 'Oraș'}</p>
+                      <p className="text-sm font-extrabold text-gray-900">{displayLocation}</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                      <Globe size={20} />
+                    </div>
+                    <div>
+                      <p className="text-xs font-semibold text-gray-400">{lang === 'es' ? 'País' : 'Țară'}</p>
+                      <p className="text-sm font-extrabold text-gray-900">RO</p>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
 
             {/* 3. INFORMACIÓN BÁSICA TABLE CARD */}
