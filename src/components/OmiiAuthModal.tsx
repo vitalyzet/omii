@@ -80,10 +80,18 @@ export default function OmiiAuthModal({
         return lang === 'ro'
           ? 'Autentificarea cu Google a fost anulată.'
           : 'El inicio de sesión con Google fue cancelado.';
+      case 'auth/operation-not-allowed':
+        return lang === 'ro'
+          ? 'Metoda de autentificare nu este activată în consola Firebase (Authentication > Sign-in method).'
+          : 'El método de autenticación no está activado en la consola de Firebase (Authentication > Sign-in method).';
+      case 'auth/unauthorized-domain':
+        return lang === 'ro'
+          ? 'Domeniul actual nu este autorizat în consola Firebase.'
+          : 'El dominio actual no está autorizado en la consola de Firebase.';
       default:
         return lang === 'ro' 
-          ? 'A apărut o eroare la autentificare. Încearcă din nou.' 
-          : 'Ocurrió un error al autenticar. Inténtalo de nuevo.';
+          ? `Eroare la autentificare (${code}). Verifică configurarea Firebase.` 
+          : `Error de autenticación (${code}). Revisa la configuración de Firebase.`;
     }
   };
 
