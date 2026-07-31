@@ -19,6 +19,7 @@ import {
 } from 'firebase/auth';
 import { auth } from './firebase';
 import OmiiAuthModal from './components/OmiiAuthModal';
+import OmiiPublishAdModal from './components/OmiiPublishAdModal';
 import { 
   User as UserIcon, 
   LogOut, 
@@ -45,6 +46,9 @@ function App() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  
+  // Publish Ad Modal State
+  const [isPublishModalOpen, setIsPublishModalOpen] = useState(false);
 
   const [homeResetKey, setHomeResetKey] = useState(0);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -336,7 +340,10 @@ function App() {
             </div>
           )}
 
-          <button className="flex items-center gap-2.5 px-5 py-2 bg-[#ebf3ff] hover:bg-[#deebff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs transition-all cursor-pointer">
+          <button 
+            onClick={() => setIsPublishModalOpen(true)}
+            className="flex items-center gap-2.5 px-5 py-2 bg-[#ebf3ff] hover:bg-[#deebff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs transition-all cursor-pointer active:scale-95"
+          >
             <img src="/publish.png" alt="Publică" className="w-5 h-5 object-contain" />
             <span>{currentLang === 'ro' ? 'Publică anunț' : 'Publicar anuncio'}</span>
           </button>
@@ -371,6 +378,13 @@ function App() {
         onClose={() => setIsAuthModalOpen(false)}
         lang={currentLang}
         initialMode={authModalMode}
+      />
+
+      {/* Publish Ad Modal */}
+      <OmiiPublishAdModal
+        isOpen={isPublishModalOpen}
+        onClose={() => setIsPublishModalOpen(false)}
+        lang={currentLang}
       />
     </div>
   )
