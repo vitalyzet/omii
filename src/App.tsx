@@ -32,12 +32,13 @@ import OmiiFooter from './components/OmiiFooter'
 
 import OmiiUserPanelPage from './components/OmiiUserPanelPage'
 import OmiiAdminPanelPage from './components/OmiiAdminPanelPage'
+import OmiiPublishAdPage from './components/OmiiPublishAdPage'
 
 function App() {
   // Global states for layout, view modes, and active page
   const [pageDesign, setPageDesign] = useState<'classic' | 'pro'>('classic');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [activePage, setActivePage] = useState<'home' | 'panel' | 'admin'>('home');
+  const [activePage, setActivePage] = useState<'home' | 'panel' | 'admin' | 'publish'>('home');
   const [userAvatar, setUserAvatar] = useState('/an74.png');
   const [currentLang, setCurrentLang] = useState<'ro' | 'es'>('ro');
   
@@ -341,7 +342,7 @@ function App() {
           )}
 
           <button 
-            onClick={() => setIsPublishModalOpen(true)}
+            onClick={() => setActivePage('publish')}
             className="flex items-center gap-2.5 px-5 py-2 bg-[#ebf3ff] hover:bg-[#deebff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs transition-all cursor-pointer active:scale-95"
           >
             <img src="/publish.png" alt="Publică" className="w-5 h-5 object-contain" />
@@ -361,6 +362,11 @@ function App() {
           onBackToHome={handleGoHome} 
           currentAvatar={currentUser?.photoURL || userAvatar}
           onAvatarChange={setUserAvatar}
+          lang={currentLang}
+        />
+      ) : activePage === 'publish' ? (
+        <OmiiPublishAdPage
+          onBackToHome={handleGoHome}
           lang={currentLang}
         />
       ) : pageDesign === 'pro' ? (
