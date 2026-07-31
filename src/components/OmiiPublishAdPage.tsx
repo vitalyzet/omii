@@ -219,6 +219,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
           Bucket: bucketName,
           Key: uniqueFileName,
           ContentType: file.type,
+          ContentLength: file.size,
           Body: file,
         });
 
@@ -745,6 +746,14 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                     className="w-full p-3 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                   />
                 </div>
+
+                {/* Error Message Box */}
+                {error && (
+                  <div className="bg-red-50 border border-red-200 p-4 rounded-xl text-red-700 text-xs font-bold flex items-center gap-2">
+                    <AlertCircle size={16} className="shrink-0" />
+                    <span>{error}</span>
+                  </div>
+                )}
 
                 {/* Validation Checklist Warning Box */}
                 {!isValid && (
