@@ -9,7 +9,10 @@ import {
   Euro, 
   MapPin, 
   Upload, 
-  Check
+  Check,
+  Camera,
+  X,
+  Navigation
 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase';
@@ -121,32 +124,29 @@ const CATEGORIES = [
   },
 ];
 
-const ROMANIAN_CITIES = [
-  'București', 'Cluj-Napoca', 'Timișoara', 'Iași', 'Brașov', 
-  'Constanța', 'Craiova', 'Sibiu', 'Galați', 'Oradea', 'Ploiești', 'Arad'
-];
-
 export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPublishAdPageProps) {
-  const [selectedCatId, setSelectedCatId] = useState<string | null>(null);
+  const [selectedCatId, setSelectedCatId] = useState<string | null>('Auto & Moto');
   const [expandedCatId, setExpandedCatId] = useState<string | null>('Auto & Moto');
-  const [selectedSubcat, setSelectedSubcat] = useState<string | null>(null);
-  
-  // Basic Form Fields
+  const [selectedSubcat, setSelectedSubcat] = useState<string | null>('Autos');
+
+  // Images state (up to 10 images)
+  const [images, setImages] = useState<string[]>([]);
+  const [tempImageUrl, setTempImageUrl] = useState('');
+
+  // Lugar state
+  const [locationInput, setLocationInput] = useState('București');
+
+  // Detalles state
+  const [year, setYear] = useState('2021');
+  const [combustibil, setCombustibil] = useState('Gasolina');
+  const [kilometros, setKilometros] = useState('45000');
+  const [price, setPrice] = useState('14500');
+  const [currency, setCurrency] = useState('EUR');
+  const [condition, setCondition] = useState('Usado');
+
+  // Title & Description state
   const [title, setTitle] = useState('');
-  const [price, setPrice] = useState('');
-  const [location, setLocation] = useState('București');
   const [description, setDescription] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
-
-  // Auto Specific Fields
-  const [marca, setMarca] = useState('');
-  const [model, setModel] = useState('');
-  const [an, setAn] = useState(new Date().getFullYear().toString());
-  const [combustibil, setCombustibil] = useState('Benzină');
-
-  // Real Estate Specific Fields
-  const [operation, setOperation] = useState('vanzare');
-  const [propertyType, setPropertyType] = useState('apartament');
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -154,40 +154,68 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
 
   const selectedCategoryObj = CATEGORIES.find(c => c.id === selectedCatId);
 
+  // Missing fields validation checklist
+  const getMissingFields = () => {
+    const missing: string[] = [];
+    if (!locationInput.trim()) missing.push(lang === 'es' ? 'Código postal, ciudad...' : 'Cod poștal, oraș...');
+    if (!kilometros.trim()) missing.push(lang === 'es' ? 'Kilómetros' : 'Kilometri');
+    if (!combustibil) missing.push(lang === 'es' ? 'Combustible' : 'Combustibil');
+    if (!year) missing.push(lang === 'es' ? 'Año' : 'An fabricație');
+    if (!title.trim() || title.length < 10) missing.push(lang === 'es' ? 'Título (mínimo 10 caracteres)' : 'Titlu (minim 10 caractere)');
+    if (!description.trim() || description.length < 40) missing.push(lang === 'es' ? 'Descripción (mínimo 40 caracteres)' : 'Descriere (minim 40 caractere)');
+    if (!price || Number(price) <= 0) missing.push(lang === 'es' ? 'Precio' : 'Preț');
+    if (!condition) missing.push(lang === 'es' ? 'Estado/Condición' : 'Stare/Condiție');
+    if (images.length === 0 && !tempImageUrl.trim()) missing.push(lang === 'es' ? 'Imágenes' : 'Imagini');
+    return missing;
+  };
+
+  const missingFields = getMissingFields();
+  const isValid = missingFields.length === 0;
+
+  const handleAddImage = () => {
+    if (tempImageUrl.trim() && images.length < 10) {
+      setImages(prev => [...prev, tempImageUrl.trim()]);
+      setTempImageUrl('');
+    }
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setImages(prev => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (!isValid) {
+      setError(lang === 'es' ? 'Por favor completa todos los campos requeridos.' : 'Te rugăm să completezi toate câmpurile obligatorii.');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      if (!title.trim()) {
-        throw new Error(lang === 'ro' ? 'Te rugăm să introduci un titlu.' : 'Ingresa un título.');
-      }
-      if (!price || isNaN(Number(price))) {
-        throw new Error(lang === 'ro' ? 'Te rugăm să introduci un preț valid.' : 'Ingresa un precio válido.');
-      }
-
-      const targetCategory = selectedCatId || 'Bazar & Cumpărături';
-      const targetCollection = selectedCategoryObj?.collection || 'anuncios';
-
-      const finalImageUrl = imageUrl.trim() || 
-        (targetCategory === 'Auto & Moto' 
-          ? 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400'
-          : targetCategory === 'Imobiliare'
-          ? 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=400'
-          : 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400');
+      const targetCategory = selectedCatId || 'Auto & Moto';
+      const targetCollection = selectedCategoryObj?.collection || 'anuncios_auto';
+      const allImages = [...images, ...(tempImageUrl.trim() ? [tempImageUrl.trim()] : [])];
+      const mainImage = allImages[0] || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400';
 
       const user = auth.currentUser;
 
       const adData: any = {
         title: title.trim(),
         price: Number(price),
+        currency,
         category: targetCategory,
         subcat: selectedSubcat,
-        location,
+        location: locationInput,
         description: description.trim(),
-        images: [finalImageUrl],
-        imageUrl: finalImageUrl,
+        images: allImages.length > 0 ? allImages : [mainImage],
+        imageUrl: mainImage,
+        year: Number(year),
+        combustibil,
+        kilometros: Number(kilometros),
+        condition,
         status: 'active',
         createdAt: serverTimestamp(),
         userId: user ? user.uid : 'guest',
@@ -195,38 +223,26 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
         userName: user ? (user.displayName || user.email?.split('@')[0]) : 'Utilizator Omii'
       };
 
-      if (targetCategory === 'Auto & Moto') {
-        adData.marca = marca || title.split(' ')[0];
-        adData.model = model || title.split(' ').slice(1).join(' ');
-        adData.an = Number(an) || 2022;
-        adData.combustibil = combustibil;
-        adData.domain = 'auto';
-      } else if (targetCategory === 'Imobiliare') {
-        adData.type = propertyType;
-        adData.operation = operation;
-        adData.domain = 'realestate';
-      }
-
       // Create Internal Local Ad Object
       const internalAd = {
         id: `int-${Date.now()}`,
         category: targetCategory,
         title: title.trim(),
         subtitle: description.trim() || `${targetCategory} - Publicat pe Omii`,
-        price: `${new Intl.NumberFormat('ro-RO').format(Number(price))} €`,
-        location,
-        imageUrl: finalImageUrl,
-        tags: [targetCategory.toLowerCase(), location.toLowerCase(), 'intern', 'anunt'],
+        price: `${new Intl.NumberFormat('ro-RO').format(Number(price))} ${currency === 'EUR' ? '€' : currency}`,
+        location: locationInput,
+        imageUrl: mainImage,
+        tags: [targetCategory.toLowerCase(), locationInput.toLowerCase(), 'intern', 'anunt'],
         isInternal: true,
         createdAt: new Date().toISOString()
       };
 
-      // 1. Save to Local Internal Storage
+      // 1. Save to Local Storage
       const existingInternal = JSON.parse(localStorage.getItem('omii_internal_published_ads') || '[]');
       const updatedInternal = [internalAd, ...existingInternal];
       localStorage.setItem('omii_internal_published_ads', JSON.stringify(updatedInternal));
 
-      // 2. Dispatch custom event
+      // 2. Dispatch Custom Event
       window.dispatchEvent(new CustomEvent('omii:internal_ad_published', { detail: internalAd }));
 
       // 3. Save to Firestore
@@ -251,7 +267,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
   return (
     <div className="min-h-screen bg-[#FAFBFD] font-sans pb-16">
       
-      {/* Top Header Bar: 0 Créditos / 0 Karma */}
+      {/* Top Sub-Header Bar: 0 Créditos / 0 Karma */}
       <div className="bg-white border-b border-gray-100 py-2.5 px-4 flex items-center justify-center gap-8 text-xs font-medium text-[#5054B4]">
         <div className="flex items-center gap-2">
           <img src="/credits.png" alt="Créditos" className="w-5 h-5 object-contain" />
@@ -283,7 +299,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
         {/* Two Column Layout */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: Categories List */}
+          {/* Left Column: Categories & Subcategories List */}
           <div className="md:col-span-5 bg-white rounded-2xl p-2 sm:p-3 shadow-xs border border-gray-100 space-y-1">
             {CATEGORIES.map((cat) => {
               const isExpanded = expandedCatId === cat.id;
@@ -355,12 +371,12 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
             })}
           </div>
 
-          {/* Right Column: Chameleon Illustration & Rules OR Selected Category Form */}
-          <div className="md:col-span-7 bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-gray-100 min-h-[420px] flex flex-col justify-center">
+          {/* Right Column: Dynamic Form tailored to user specification */}
+          <div className="md:col-span-7 bg-white rounded-2xl p-6 sm:p-8 shadow-xs border border-gray-100">
             
             {!selectedCatId ? (
-              /* State 1: Chameleon Illustration and Publish Rules Button */
-              <div className="text-center py-6 space-y-5 flex flex-col items-center justify-center">
+              /* Default State: Chameleon Illustration */
+              <div className="text-center py-6 space-y-5 flex flex-col items-center justify-center min-h-[380px]">
                 <img 
                   src="/chameleon112.png" 
                   alt="Mascot Chameleon" 
@@ -381,188 +397,331 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                   {lang === 'ro' ? 'Vezi regulile de publicare' : 'Ver las reglas de publicación'}
                 </button>
               </div>
+            ) : success ? (
+              /* Success Screen */
+              <div className="py-12 text-center space-y-4 flex flex-col items-center justify-center">
+                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
+                  <CheckCircle2 size={40} />
+                </div>
+                <h2 className="text-2xl font-black text-gray-900">
+                  {lang === 'ro' ? 'Anunț Publicat cu Succes!' : '¡Anuncio Publicado con Éxito!'}
+                </h2>
+                <p className="text-sm text-gray-500 max-w-sm mx-auto">
+                  {lang === 'ro' 
+                    ? 'Anunțul tău a fost salvat și este acum vizibil în prima poziție pe Omii.' 
+                    : 'Tu anuncio ha sido guardado y ya es visible en la primera posición en Omii.'}
+                </p>
+              </div>
             ) : (
-              /* State 2: Selected Category Form */
-              <div>
-                {success ? (
-                  <div className="py-8 text-center space-y-4 flex flex-col items-center justify-center">
-                    <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
-                      <CheckCircle2 size={40} />
-                    </div>
-                    <h2 className="text-2xl font-black text-gray-900">
-                      {lang === 'ro' ? 'Anunț Publicat cu Succes!' : '¡Anuncio Publicado con Éxito!'}
-                    </h2>
-                    <p className="text-sm text-gray-500 max-w-sm mx-auto">
-                      {lang === 'ro' 
-                        ? 'Anunțul tău a fost salvat și este acum vizibil în prima poziție pe Omii.' 
-                        : 'Tu anuncio ha sido guardado y ya es visible en la primera posición en Omii.'}
-                    </p>
+              /* Selected Category Form: Matching User Request 1:1 */
+              <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* Category Header Breadcrumb */}
+                <div className="pb-4 border-b border-gray-100">
+                  <h2 className="text-xl font-extrabold text-[#5054B4]">
+                    {lang === 'es' ? selectedCategoryObj?.nameEs : selectedCategoryObj?.nameRo}
+                    {selectedSubcat && <span className="text-[#3E42A5]"> &gt; {selectedSubcat}</span>}
+                  </h2>
+                  <p className="text-xs text-gray-400 mt-1 font-medium">
+                    {selectedCatId === 'Auto & Moto' 
+                      ? (lang === 'ro' ? 'Vinde vehicule și accesorii auto' : 'Vende vehículos y accesorios de vehículos')
+                      : selectedCatId === 'Imobiliare'
+                      ? (lang === 'ro' ? 'Publică proprietăți imobiliare de vânzare sau închiriat' : 'Vende o alquila inmuebles')
+                      : (lang === 'ro' ? 'Publică anunțul tău rapid pe Omii' : 'Publica tu anuncio fácilmente')}
+                  </p>
+                </div>
+
+                {/* Section 1: Imágenes */}
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-base font-extrabold text-gray-800">
+                      {lang === 'es' ? 'Imágenes' : 'Imagini'}
+                    </h3>
+                    <span className="text-xs font-bold text-gray-400">
+                      {lang === 'es' ? 'Máximo 10 imágenes' : 'Maxim 10 imagini'}
+                    </span>
                   </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    
-                    <div className="flex items-center justify-between pb-3 border-b border-gray-100">
-                      <div className="flex items-center gap-2">
-                        <div className={`w-6 h-6 rounded-full ${selectedCategoryObj?.color} text-white flex items-center justify-center`}>
-                          <ChevronRight size={14} strokeWidth={2.5} />
-                        </div>
-                        <h2 className="text-lg font-extrabold text-[#005944]">
-                          {lang === 'es' ? selectedCategoryObj?.nameEs : selectedCategoryObj?.nameRo}
-                        </h2>
-                      </div>
-                      <button 
-                        type="button"
-                        onClick={() => setSelectedCatId(null)}
-                        className="text-xs font-bold text-[#5054B4] hover:underline cursor-pointer"
-                      >
-                        {lang === 'ro' ? 'Schimbă categoria' : 'Cambiar categoría'}
-                      </button>
-                    </div>
+                  <p className="text-xs text-gray-400">
+                    {lang === 'es' 
+                      ? 'Las imágenes no pueden contener teléfono, email o sitio web' 
+                      : 'Imaginile nu pot conține număr de telefon, email sau site web'}
+                  </p>
 
-                    {error && (
-                      <div className="bg-red-50 text-red-700 border border-red-200/80 p-3 rounded-xl text-xs font-bold flex items-center gap-2.5">
-                        <AlertCircle size={16} className="shrink-0 text-red-500" />
-                        <span>{error}</span>
+                  {/* Image Gallery Slots */}
+                  <div className="grid grid-cols-5 gap-2 pt-1">
+                    {images.map((img, idx) => (
+                      <div key={idx} className="relative aspect-square rounded-lg border border-gray-200 overflow-hidden group">
+                        <img src={img} alt={`Photo ${idx + 1}`} className="w-full h-full object-cover" />
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveImage(idx)}
+                          className="absolute top-1 right-1 w-5 h-5 bg-red-600 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        >
+                          <X size={12} />
+                        </button>
                       </div>
-                    )}
+                    ))}
+                    {Array.from({ length: Math.max(0, 5 - images.length) }).map((_, idx) => (
+                      <div key={idx} className="aspect-square rounded-lg border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-gray-400">
+                        <Camera size={18} />
+                      </div>
+                    ))}
+                  </div>
 
-                    {/* Title Input */}
-                    <div className="space-y-1">
-                      <label className="text-xs font-bold text-gray-700">
-                        {lang === 'ro' ? 'Titlul Anunțului *' : 'Título del Anuncio *'}
-                      </label>
+                  {/* Image URL Input box */}
+                  <div className="flex gap-2 pt-2">
+                    <input
+                      type="url"
+                      value={tempImageUrl}
+                      onChange={(e) => setTempImageUrl(e.target.value)}
+                      placeholder={lang === 'es' ? 'Pega el enlace URL de la imagen aquí...' : 'Adaugă link-ul foto (URL)...'}
+                      className="flex-1 px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleAddImage}
+                      className="px-3.5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-xs rounded-lg transition-colors cursor-pointer"
+                    >
+                      {lang === 'es' ? 'Añadir' : 'Adaugă'}
+                    </button>
+                  </div>
+                </div>
+
+                {/* Section 2: Lugar */}
+                <div className="space-y-3 pt-3 border-t border-gray-100">
+                  <h3 className="text-base font-extrabold text-gray-800">
+                    {lang === 'es' ? 'Lugar' : 'Locație'}
+                  </h3>
+                  <label className="text-xs font-bold text-gray-700 block">
+                    {lang === 'es' ? '¿Dónde quieres anunciar?' : 'Unde dorești să publici anunțul?'}
+                  </label>
+                  
+                  <div className="flex gap-2">
+                    <div className="relative flex-1">
+                      <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                       <input
                         type="text"
                         required
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder={
-                          selectedCatId === 'Auto & Moto' 
-                            ? 'ex. BMW 320d GT xDrive 2020 M-Sport' 
-                            : selectedCatId === 'Imobiliare'
-                            ? 'ex. Apartament 3 Camere Decomandat Herăstrău'
-                            : 'ex. Titlu clar și reprezentativ'
-                        }
-                        className="w-full px-3.5 py-2.5 bg-gray-50/70 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                        value={locationInput}
+                        onChange={(e) => setLocationInput(e.target.value)}
+                        placeholder={lang === 'es' ? 'Código postal, ciudad...' : 'Cod poștal, oraș...'}
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       />
                     </div>
+                    <button
+                      type="button"
+                      onClick={() => setLocationInput('București')}
+                      className="px-3.5 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl border border-blue-200/60 transition-colors flex items-center gap-1.5 cursor-pointer"
+                    >
+                      <Navigation size={14} />
+                      <span>{lang === 'es' ? 'Localizar' : 'Localizează'}</span>
+                    </button>
+                  </div>
+                  
+                  <p className="text-[11px] text-gray-400 leading-relaxed">
+                    {lang === 'es' 
+                      ? 'Puedes pulsar en localizar o escribir ciudad, pueblo, codigo postal... El sistema buscara y mostrara un listado con los codigos postales donde poder elegir'
+                      : 'Poți apăsa pe localizează sau scrie orașul, codul poștal... Sistemul va căuta și va afișa o listă.'}
+                  </p>
+                </div>
 
-                    {/* Auto Specific Fields */}
-                    {selectedCatId === 'Auto & Moto' && (
-                      <div className="grid grid-cols-2 gap-3 bg-red-50/40 p-3 rounded-xl border border-red-100">
-                        <div className="space-y-1">
-                          <label className="text-[11px] font-bold text-gray-700">Marcă</label>
-                          <input 
-                            type="text"
-                            value={marca}
-                            onChange={(e) => setMarca(e.target.value)}
-                            placeholder="ex. BMW"
-                            className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold"
-                          />
-                        </div>
-                        <div className="space-y-1">
-                          <label className="text-[11px] font-bold text-gray-700">Model</label>
-                          <input 
-                            type="text"
-                            value={model}
-                            onChange={(e) => setModel(e.target.value)}
-                            placeholder="ex. Seria 3"
-                            className="w-full px-2.5 py-1.5 bg-white border border-gray-200 rounded-lg text-xs font-semibold"
-                          />
-                        </div>
-                      </div>
-                    )}
+                {/* Section 3: Detalles */}
+                <div className="space-y-4 pt-3 border-t border-gray-100">
+                  <h3 className="text-base font-extrabold text-gray-800">
+                    {lang === 'es' ? 'Detalles' : 'Detalii'}
+                  </h3>
 
-                    {/* Price and Location */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div className="space-y-1">
-                        <label className="text-xs font-bold text-gray-700">
-                          {lang === 'ro' ? 'Preț (€ Euro) *' : 'Precio (€ Euro) *'}
-                        </label>
-                        <div className="relative">
-                          <Euro size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                          <input
-                            type="number"
-                            required
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            placeholder="ex. 14500"
-                            className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50/70 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="space-y-1">
-                        <label className="text-xs font-bold text-gray-700">
-                          {lang === 'ro' ? 'Oraș / Județ *' : 'Ciudad / Ubicación *'}
-                        </label>
-                        <div className="relative">
-                          <MapPin size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                          <select
-                            value={location}
-                            onChange={(e) => setLocation(e.target.value)}
-                            className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50/70 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
-                          >
-                            {ROMANIAN_CITIES.map(city => (
-                              <option key={city} value={city}>{city}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Image URL */}
+                  {/* Row 1: Año & Combustible */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
                       <label className="text-xs font-bold text-gray-700">
-                        {lang === 'ro' ? 'Link Imagine / Foto (URL)' : 'URL de la Imagen'}
+                        {lang === 'es' ? 'Año' : 'An fabricație'}
+                      </label>
+                      <select
+                        value={year}
+                        onChange={(e) => setYear(e.target.value)}
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      >
+                        {Array.from({ length: 45 }).map((_, i) => {
+                          const y = (2026 - i).toString();
+                          return <option key={y} value={y}>{y}</option>;
+                        })}
+                      </select>
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-gray-700">
+                        {lang === 'es' ? 'Combustible' : 'Combustibil'}
+                      </label>
+                      <select
+                        value={combustibil}
+                        onChange={(e) => setCombustibil(e.target.value)}
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      >
+                        <option value="Gasolina">Gasolina / Benzină</option>
+                        <option value="Diésel">Diésel / Motorină</option>
+                        <option value="Híbrido">Híbrido / Hibrid</option>
+                        <option value="Eléctrico">Eléctrico</option>
+                        <option value="GLP">GLP</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  {/* Row 2: Kilómetros & Precio + Moneda */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-gray-700">
+                        {lang === 'es' ? 'Kilómetros' : 'Kilometri'}
                       </label>
                       <div className="relative">
-                        <Upload size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                         <input
-                          type="url"
-                          value={imageUrl}
-                          onChange={(e) => setImageUrl(e.target.value)}
-                          placeholder="https://images.unsplash.com/photo-..."
-                          className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50/70 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                          type="number"
+                          value={kilometros}
+                          onChange={(e) => setKilometros(e.target.value)}
+                          placeholder="45000"
+                          className="w-full pr-8 pl-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                         />
+                        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">km</span>
                       </div>
                     </div>
 
-                    {/* Description */}
                     <div className="space-y-1">
                       <label className="text-xs font-bold text-gray-700">
-                        {lang === 'ro' ? 'Descriere Detaliată' : 'Descripción Detallada'}
+                        {lang === 'es' ? 'Precio' : 'Preț'}
                       </label>
-                      <textarea
-                        rows={3}
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder={lang === 'ro' ? 'Descrie starea produsului sau detalii de contact...' : 'Describe el estado o información de contacto...'}
-                        className="w-full p-3 bg-gray-50/70 border border-gray-200 rounded-xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                      <input
+                        type="number"
+                        required
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        placeholder="14500"
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       />
                     </div>
 
-                    {/* Submit Button */}
-                    <div className="pt-2">
-                      <button
-                        type="submit"
-                        disabled={loading}
-                        className="w-full py-3 bg-[#5B6BBF] hover:bg-[#4C5CAE] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
+                    <div className="space-y-1">
+                      <label className="text-xs font-bold text-gray-700">
+                        {lang === 'es' ? 'Moneda' : 'Monedă'}
+                      </label>
+                      <select
+                        value={currency}
+                        onChange={(e) => setCurrency(e.target.value)}
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
                       >
-                        {loading ? (
-                          <Loader2 size={18} className="animate-spin" />
-                        ) : (
-                          <>
-                            <Check size={18} />
-                            <span>{lang === 'ro' ? 'Publică Anunțul Acum' : 'Publicar Anuncio Ahora'}</span>
-                          </>
-                        )}
-                      </button>
+                        <option value="EUR">EUR (€ Euro)</option>
+                        <option value="RON">RON (Lei)</option>
+                        <option value="PEN">S/ - Sol Peruano</option>
+                      </select>
                     </div>
+                  </div>
 
-                  </form>
+                  {/* Row 3: Estado/Condición */}
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-gray-700">
+                      {lang === 'es' ? 'Estado/Condición' : 'Stare / Condiție'}
+                    </label>
+                    <select
+                      value={condition}
+                      onChange={(e) => setCondition(e.target.value)}
+                      className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    >
+                      <option value="Usado">Usado / Second-Hand</option>
+                      <option value="Nuevo">Nuevo / Nou</option>
+                      <option value="Excelente">Excelente / Ca Nou</option>
+                    </select>
+                  </div>
+                </div>
+
+                {/* Section 4: Título */}
+                <div className="space-y-1.5 pt-3 border-t border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-gray-700">
+                      {lang === 'es' ? 'Título' : 'Titlu'}
+                    </label>
+                    <span className="text-[11px] font-bold text-gray-400">
+                      {title.length} / 70
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-gray-400">
+                    {lang === 'es' 
+                      ? 'No incluya el número de teléfono, web o email. Mínimo 10 caracteres.' 
+                      : 'Nu includeți numărul de telefon, web sau email. Minim 10 caractere.'}
+                  </p>
+                  <input
+                    type="text"
+                    maxLength={70}
+                    required
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder={lang === 'es' ? 'Título del anuncio...' : 'Titlul anunțului...'}
+                    className="w-full px-3.5 py-2.5 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  />
+                </div>
+
+                {/* Section 5: Descripción */}
+                <div className="space-y-1.5 pt-3 border-t border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <label className="text-xs font-bold text-gray-700">
+                      {lang === 'es' ? 'Descripción' : 'Descriere'}
+                    </label>
+                    <span className="text-[11px] font-bold text-gray-400">
+                      {description.length} / 2000
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-gray-400">
+                    {lang === 'es' 
+                      ? 'No incluya el número de teléfono, web o email al principio. Mínimo 40 caracteres.' 
+                      : 'Nu includeți numărul de telefon, web sau email la început. Minim 40 caractere.'}
+                  </p>
+                  <textarea
+                    rows={4}
+                    maxLength={2000}
+                    required
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder={lang === 'es' ? 'Escribe aquí la descripción detallada...' : 'Scrie aici descrierea detaliată...'}
+                    className="w-full p-3 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                  />
+                </div>
+
+                {/* Validation Checklist Warning Box */}
+                {!isValid && (
+                  <div className="bg-red-50/70 border border-red-200 p-4 rounded-xl space-y-2 text-xs">
+                    <p className="font-bold text-red-700 flex items-center gap-2">
+                      <AlertCircle size={16} className="text-red-600 shrink-0" />
+                      <span>
+                        {lang === 'es' 
+                          ? 'Has de rellenar correctamente los campos que faltan para poder publicarlo:' 
+                          : 'Trebuie să completezi corect câmpurile care lipsesc:'}
+                      </span>
+                    </p>
+                    <ul className="list-disc list-inside text-red-600/90 font-semibold space-y-0.5 pl-5">
+                      {missingFields.map((field, idx) => (
+                        <li key={idx}>{field}</li>
+                      ))}
+                    </ul>
+                  </div>
                 )}
-              </div>
+
+                {/* Submit Action */}
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    disabled={loading || !isValid}
+                    className="w-full py-3.5 bg-[#5B6BBF] hover:bg-[#4C5CAE] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {loading ? (
+                      <Loader2 size={18} className="animate-spin" />
+                    ) : (
+                      <>
+                        <Check size={18} />
+                        <span>{lang === 'es' ? 'Publicar Anuncio' : 'Publică Anunțul'}</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+              </form>
             )}
 
           </div>
