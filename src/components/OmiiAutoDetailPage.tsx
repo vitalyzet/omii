@@ -22,7 +22,8 @@ import {
   Heart,
   Share2,
   X,
-  Gauge
+  Gauge,
+  CheckCircle
 } from 'lucide-react';
 import { Language } from '../translations';
 
@@ -81,6 +82,19 @@ export default function OmiiAutoDetailPage({
   const galleryList = listing?.images && listing.images.length > 0 
     ? listing.images 
     : [mainImage, ...AUTO_GALLERY_IMAGES.slice(1)];
+
+  // Prepare technical specs for the 2-column layout
+  const specsList = [
+    { label: lang === 'es' ? 'Marca' : 'Marcă', value: listing?.marca },
+    { label: lang === 'es' ? 'Modelo' : 'Model', value: listing?.model },
+    { label: lang === 'es' ? 'Año' : 'An fabricație', value: listing?.year || listing?.an },
+    { label: lang === 'es' ? 'Categoría' : 'Categorie', value: listing?.subcat || listing?.category },
+    { label: lang === 'es' ? 'Kilometraje' : 'Rulaj', value: listing?.kilometros !== undefined ? `${new Intl.NumberFormat('ro-RO').format(Number(listing?.kilometros))} Km` : undefined },
+    { label: lang === 'es' ? 'Combustible' : 'Combustibil', value: listing?.combustibil },
+    { label: lang === 'es' ? 'Potencia' : 'Putere', value: listing?.potencia },
+    { label: lang === 'es' ? 'Transmisión' : 'Cutie viteze', value: listing?.transmission },
+    { label: lang === 'es' ? 'Estado' : 'Stare', value: listing?.condition },
+  ].filter(s => s.value !== undefined && s.value !== null && s.value !== '');
 
   const handlePrevImage = (e?: React.MouseEvent) => {
     e?.stopPropagation();
@@ -340,88 +354,33 @@ export default function OmiiAutoDetailPage({
                 {lang === 'es' ? 'Datos técnicos' : 'Date tehnice'}
               </h3>
 
-              <div className="space-y-0.5 text-xs sm:text-sm divide-y divide-gray-100">
-                {listing?.condition && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold flex items-center gap-1">
-                      {lang === 'es' ? 'Estado del vehículo' : 'Stare vehicul'} <HelpCircle size={13} className="text-gray-400" />
-                    </span>
-                    <span className="font-bold text-gray-900">{listing.condition}</span>
-                  </div>
-                )}
-
-                {(listing?.category || listing?.subcat) && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Categoría' : 'Categorie'}</span>
-                    <span className="font-bold text-gray-900">{listing.subcat || listing.category}</span>
-                  </div>
-                )}
-
-                {listing?.marca && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Marca' : 'Marcă'}</span>
-                    <span className="font-bold text-gray-900">{listing.marca}</span>
-                  </div>
-                )}
-
-                {listing?.model && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Modelo' : 'Model'}</span>
-                    <span className="font-bold text-gray-900">{listing.model}</span>
-                  </div>
-                )}
-
-                {(listing?.year || listing?.an) && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Año' : 'An'}</span>
-                    <span className="font-bold text-gray-900">{listing.year || listing.an}</span>
-                  </div>
-                )}
-
-                {listing?.kilometros !== undefined && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Kilometraje' : 'Rulaj KM'}</span>
-                    <span className="font-bold text-gray-900">{new Intl.NumberFormat('ro-RO').format(Number(listing.kilometros))} km</span>
-                  </div>
-                )}
-
-                {listing?.combustibil && (
-                  <div className="flex items-center justify-between py-3">
-                    <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Combustible' : 'Combustibil'}</span>
-                    <span className="font-bold text-gray-900">{listing.combustibil}</span>
-                  </div>
-                )}
-
-                {/* Additional optional specs if available */}
-                {showMoreSpecs && (
-                  <>
-                    {listing?.potencia && (
-                      <div className="flex items-center justify-between py-3">
-                        <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Potencia' : 'Putere motor'}</span>
-                        <span className="font-bold text-gray-900">{listing.potencia}</span>
+              <div className="flex flex-col text-sm pt-2">
+                {Array.from({ length: Math.ceil(specsList.length / 2) }).map((_, i) => (
+                  <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12 py-3.5 border-b border-gray-100 last:border-0">
+                    <div className="flex items-center justify-between py-1 md:py-0">
+                      <span className="text-gray-400 font-semibold">{specsList[i * 2].label}</span>
+                      <span className="font-extrabold text-gray-900">{specsList[i * 2].value}</span>
+                    </div>
+                    {specsList[i * 2 + 1] && (
+                      <div className="flex items-center justify-between py-1 md:py-0 mt-2 md:mt-0 pt-2 md:pt-0 border-t border-gray-100 md:border-0">
+                        <span className="text-gray-400 font-semibold">{specsList[i * 2 + 1].label}</span>
+                        <span className="font-extrabold text-gray-900">{specsList[i * 2 + 1].value}</span>
                       </div>
                     )}
-                    {listing?.transmission && (
-                      <div className="flex items-center justify-between py-3">
-                        <span className="text-gray-500 font-semibold">{lang === 'es' ? 'Transmisión' : 'Cutie de viteze'}</span>
-                        <span className="font-bold text-gray-900">{listing.transmission}</span>
-                      </div>
-                    )}
-                  </>
-                )}
+                  </div>
+                ))}
               </div>
 
-              <div className="pt-1 text-center">
-                <button
-                  type="button"
-                  onClick={() => setShowMoreSpecs(!showMoreSpecs)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#108474] hover:underline cursor-pointer"
-                >
-                  <span>{showMoreSpecs ? (lang === 'es' ? 'Mostrar menos' : 'Arată mai puțin') : (lang === 'es' ? 'Mostrar más' : 'Arată mai mult')}</span>
-                  {showMoreSpecs ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-                </button>
-              </div>
-
+              {/* Optional Warranty Box */}
+              {(listing as any)?.garantie && (
+                <div className="mt-4 bg-[#f0fdf4] text-[#059669] p-4 rounded-xl flex items-center justify-between border border-[#bbf7d0]">
+                  <div className="flex items-center gap-2 font-bold">
+                    <CheckCircle size={18} className="text-[#059669]" />
+                    <span>{lang === 'es' ? 'Garantía' : 'Garanție'}</span>
+                  </div>
+                  <span className="font-extrabold text-[#059669]">{(listing as any).garantie}</span>
+                </div>
+              )}
             </div>
 
           </div>
