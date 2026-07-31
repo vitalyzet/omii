@@ -215,12 +215,14 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
       const uploadPromises = filesToUpload.map(async (file) => {
         const uniqueFileName = `${uuidv4()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
         
+        const arrayBuffer = await file.arrayBuffer();
+        
         const command = new PutObjectCommand({
           Bucket: bucketName,
           Key: uniqueFileName,
           ContentType: file.type,
           ContentLength: file.size,
-          Body: file,
+          Body: new Uint8Array(arrayBuffer),
         });
 
         await s3Client.send(command);
