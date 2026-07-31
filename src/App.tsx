@@ -101,9 +101,11 @@ function App() {
           className="flex items-center space-x-2 cursor-pointer select-none group"
           title="Ir a la página principal"
         >
-          <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-            a
-          </div>
+          <img 
+            src="/an32.png" 
+            alt="Omii Logo" 
+            className="w-9 h-9 object-contain group-hover:scale-105 transition-transform" 
+          />
           <span className="font-bold text-xl text-gray-800 group-hover:text-blue-600 transition-colors">Omii</span>
           {pageDesign === 'pro' && (
             <span className="ml-2 bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">PRO</span>

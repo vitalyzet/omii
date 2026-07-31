@@ -75,9 +75,11 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
               onClick={onGoHome}
               className={`flex items-center space-x-2 ${onGoHome ? 'cursor-pointer select-none group' : ''}`}
             >
-              <div className="w-9 h-9 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-xl group-hover:scale-105 transition-transform">
-                a
-              </div>
+              <img 
+                src="/an32.png" 
+                alt="Omii Logo" 
+                className="w-9 h-9 object-contain group-hover:scale-105 transition-transform" 
+              />
               <span className="font-bold text-2xl text-gray-900 tracking-tight group-hover:text-blue-600 transition-colors">Omii</span>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed max-w-sm">

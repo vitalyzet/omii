@@ -165,9 +165,11 @@ export default function OmiiAuthModal({
 
         {/* Header Header Banner */}
         <div className="bg-gradient-to-br from-indigo-900 via-blue-900 to-slate-900 text-white p-6 pt-8 text-center relative overflow-hidden">
-          <div className="w-12 h-12 rounded-full bg-blue-600/90 text-white font-black text-2xl flex items-center justify-center mx-auto mb-3 shadow-lg border border-blue-400/40">
-            a
-          </div>
+          <img 
+            src="/an32.png" 
+            alt="Omii Logo" 
+            className="w-12 h-12 object-contain mx-auto mb-3 drop-shadow-md" 
+          />
           <h2 className="text-xl font-extrabold tracking-tight">
             {mode === 'login' && (lang === 'ro' ? 'Autentificare pe Omii' : 'Iniciar sesión en Omii')}
             {mode === 'register' && (lang === 'ro' ? 'Creează un cont nou' : 'Crear una cuenta nueva')}
