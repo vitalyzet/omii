@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   ChevronRight, 
+  ChevronDown,
   ArrowLeft, 
   CheckCircle2, 
   AlertCircle, 
@@ -8,9 +9,7 @@ import {
   Euro, 
   MapPin, 
   Upload, 
-  Check,
-  Coins,
-  Flower2
+  Check
 } from 'lucide-react';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase';
@@ -22,14 +21,104 @@ interface OmiiPublishAdPageProps {
 }
 
 const CATEGORIES = [
-  { id: 'Bazar & Cumpărături', nameRo: 'Bazar & Cumpărături', nameEs: 'Compraventa', color: 'bg-[#7B3FF2]' },
-  { id: 'Auto & Moto', nameRo: 'Auto & Moto', nameEs: 'Vehículos', color: 'bg-[#E14937]', collection: 'anuncios_auto' },
-  { id: 'Imobiliare', nameRo: 'Imobiliare', nameEs: 'Inmuebles', color: 'bg-[#7CB342]', collection: 'anuncios' },
-  { id: 'Locuri de muncă', nameRo: 'Locuri de muncă', nameEs: 'Empleo', color: 'bg-[#5C4A6B]', collection: 'anuncios' },
-  { id: 'Afaceri & Firme', nameRo: 'Afaceri & Firme', nameEs: 'Negocios', color: 'bg-[#C36437]', collection: 'anuncios' },
-  { id: 'Servicii', nameRo: 'Servicii', nameEs: 'Servicios', color: 'bg-[#00A3E0]', collection: 'anuncios' },
-  { id: 'Cursuri & Instruire', nameRo: 'Cursuri & Instruire', nameEs: 'Formación', color: 'bg-[#FF5376]', collection: 'anuncios' },
-  { id: 'Timp liber', nameRo: 'Timp liber', nameEs: 'Ocio', color: 'bg-[#E6B800]', collection: 'anuncios' },
+  { 
+    id: 'Bazar & Cumpărături', 
+    nameRo: 'Bazar & Cumpărături', 
+    nameEs: 'Compraventa', 
+    color: 'bg-[#7B3FF2]',
+    subcategories: [
+      { nameRo: 'Telefoane & Tablete', nameEs: 'Teléfonos y Tabletas' },
+      { nameRo: 'Laptopuri & Calculatoare', nameEs: 'Portátiles y PC' },
+      { nameRo: 'Jocuri & Console', nameEs: 'Juegos y Consolas' },
+      { nameRo: 'Electrocasnice', nameEs: 'Electrodomésticos' },
+      { nameRo: 'Modă & Accesorii', nameEs: 'Moda y Accesorios' }
+    ]
+  },
+  { 
+    id: 'Auto & Moto', 
+    nameRo: 'Auto & Moto', 
+    nameEs: 'Vehículos', 
+    color: 'bg-[#E14937]', 
+    collection: 'anuncios_auto',
+    subcategories: [
+      { nameRo: 'Autoturisme', nameEs: 'Autos' },
+      { nameRo: 'Motociclete', nameEs: 'Motos' },
+      { nameRo: 'Utilitare & Camioane', nameEs: 'Furgonetas y Camiones' },
+      { nameRo: 'Piese Auto & Accesorii', nameEs: 'Recambios y Accesorios' }
+    ]
+  },
+  { 
+    id: 'Imobiliare', 
+    nameRo: 'Imobiliare', 
+    nameEs: 'Inmuebles', 
+    color: 'bg-[#7CB342]', 
+    collection: 'anuncios',
+    subcategories: [
+      { nameRo: 'Apartamente', nameEs: 'Pisos' },
+      { nameRo: 'Case & Vile', nameEs: 'Casas y Chalets' },
+      { nameRo: 'Terenuri', nameEs: 'Terrenos' },
+      { nameRo: 'Birouri & Spații', nameEs: 'Oficinas y Locales' }
+    ]
+  },
+  { 
+    id: 'Locuri de muncă', 
+    nameRo: 'Locuri de muncă', 
+    nameEs: 'Empleo', 
+    color: 'bg-[#5C4A6B]', 
+    collection: 'anuncios',
+    subcategories: [
+      { nameRo: 'IT & Programare', nameEs: 'Informática y Tecnología' },
+      { nameRo: 'Vânzări & Comercial', nameEs: 'Comercial y Ventas' },
+      { nameRo: 'Finanțe & Contabilitate', nameEs: 'Finanzas y Contabilidad' },
+      { nameRo: 'Transport & Logistică', nameEs: 'Transporte y Logística' }
+    ]
+  },
+  { 
+    id: 'Afaceri & Firme', 
+    nameRo: 'Afaceri & Firme', 
+    nameEs: 'Negocios', 
+    color: 'bg-[#C36437]', 
+    collection: 'anuncios',
+    subcategories: [
+      { nameRo: 'Preluare Afaceri', nameEs: 'Traspasos' },
+      { nameRo: 'E-Commerce & Online', nameEs: 'Tiendas Online' },
+      { nameRo: 'Horeca & Turism', nameEs: 'Hostelería' }
+    ]
+  },
+  { 
+    id: 'Servicii', 
+    nameRo: 'Servicii', 
+    nameEs: 'Servicios', 
+    color: 'bg-[#00A3E0]', 
+    collection: 'anuncios',
+    subcategories: [
+      { nameRo: 'Construcții & Amenajări', nameEs: 'Reformas y Obras' },
+      { nameRo: 'Servicii Auto & Tractări', nameEs: 'Servicios de Mecánica' },
+      { nameRo: 'Sănătate & Frumusețe', nameEs: 'Salud y Belleza' }
+    ]
+  },
+  { 
+    id: 'Cursuri & Instruire', 
+    nameRo: 'Cursuri & Instruire', 
+    nameEs: 'Formación', 
+    color: 'bg-[#FF5376]', 
+    collection: 'anuncios',
+    subcategories: [
+      { nameRo: 'Meditații & Lecții', nameEs: 'Clases Particulares' },
+      { nameRo: 'Cursuri Limbi Străine', nameEs: 'Cursos de Idiomas' }
+    ]
+  },
+  { 
+    id: 'Timp liber', 
+    nameRo: 'Timp liber', 
+    nameEs: 'Ocio', 
+    color: 'bg-[#E6B800]', 
+    collection: 'anuncios',
+    subcategories: [
+      { nameRo: 'Bilete Evenimente', nameEs: 'Entradas y Eventos' },
+      { nameRo: 'Sport & Agrement', nameEs: 'Deportes' }
+    ]
+  },
 ];
 
 const ROMANIAN_CITIES = [
@@ -39,6 +128,8 @@ const ROMANIAN_CITIES = [
 
 export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPublishAdPageProps) {
   const [selectedCatId, setSelectedCatId] = useState<string | null>(null);
+  const [expandedCatId, setExpandedCatId] = useState<string | null>('Auto & Moto');
+  const [selectedSubcat, setSelectedSubcat] = useState<string | null>(null);
   
   // Basic Form Fields
   const [title, setTitle] = useState('');
@@ -92,6 +183,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
         title: title.trim(),
         price: Number(price),
         category: targetCategory,
+        subcat: selectedSubcat,
         location,
         description: description.trim(),
         images: [finalImageUrl],
@@ -194,28 +286,70 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
           {/* Left Column: Categories List */}
           <div className="md:col-span-5 bg-white rounded-2xl p-2 sm:p-3 shadow-xs border border-gray-100 space-y-1">
             {CATEGORIES.map((cat) => {
+              const isExpanded = expandedCatId === cat.id;
               const isSelected = selectedCatId === cat.id;
               const displayName = lang === 'es' ? cat.nameEs : cat.nameRo;
 
               return (
-                <div
-                  key={cat.id}
-                  onClick={() => {
-                    setSelectedCatId(cat.id);
-                    setError(null);
-                  }}
-                  className={`flex items-center gap-3 p-3 rounded-xl transition-all cursor-pointer group ${
-                    isSelected 
-                      ? 'bg-indigo-50/80 shadow-2xs font-bold' 
-                      : 'hover:bg-gray-50/80'
-                  }`}
-                >
-                  <div className={`w-7 h-7 rounded-full ${cat.color} text-white flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform`}>
-                    <ChevronRight size={16} strokeWidth={2.5} />
+                <div key={cat.id} className="space-y-1">
+                  {/* Category Main Row */}
+                  <div
+                    onClick={() => {
+                      if (isExpanded) {
+                        setExpandedCatId(null);
+                      } else {
+                        setExpandedCatId(cat.id);
+                      }
+                      setSelectedCatId(cat.id);
+                      setError(null);
+                    }}
+                    className={`flex items-center justify-between p-3 rounded-xl transition-all cursor-pointer group ${
+                      isSelected || isExpanded
+                        ? 'bg-indigo-50/70 shadow-2xs font-bold' 
+                        : 'hover:bg-gray-50/80'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className={`w-7 h-7 rounded-full ${cat.color} text-white flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform`}>
+                        {isExpanded ? (
+                          <ChevronDown size={16} strokeWidth={2.5} />
+                        ) : (
+                          <ChevronRight size={16} strokeWidth={2.5} />
+                        )}
+                      </div>
+                      <span className={`text-sm sm:text-base font-semibold ${isSelected || isExpanded ? 'text-[#3E42A5] font-bold' : 'text-[#5054B4] hover:text-[#3E42A5]'}`}>
+                        {displayName}
+                      </span>
+                    </div>
                   </div>
-                  <span className={`text-sm sm:text-base font-semibold ${isSelected ? 'text-[#3E42A5] font-bold' : 'text-[#5054B4] hover:text-[#3E42A5]'}`}>
-                    {displayName}
-                  </span>
+
+                  {/* Subcategories Indented List */}
+                  {isExpanded && cat.subcategories && (
+                    <div className="pl-11 pr-3 py-1 space-y-2 animate-fade-in">
+                      {cat.subcategories.map((subcat, idx) => {
+                        const subcatName = lang === 'es' ? subcat.nameEs : subcat.nameRo;
+                        const isSubSelected = selectedSubcat === subcatName && selectedCatId === cat.id;
+
+                        return (
+                          <div
+                            key={idx}
+                            onClick={() => {
+                              setSelectedCatId(cat.id);
+                              setSelectedSubcat(subcatName);
+                              setError(null);
+                            }}
+                            className={`text-sm font-semibold transition-all cursor-pointer py-1 ${
+                              isSubSelected 
+                                ? 'text-[#3E42A5] font-extrabold underline' 
+                                : 'text-[#5054B4] hover:text-[#3E42A5] hover:underline'
+                            }`}
+                          >
+                            {subcatName}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
                 </div>
               );
             })}
