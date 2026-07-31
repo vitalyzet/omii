@@ -17,6 +17,19 @@ import {
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db, auth } from '../firebase';
 import { Language } from '../translations';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { v4 as uuidv4 } from 'uuid';
+
+// Initialize S3Client
+// These env vars must be in your .env.local for omii
+const s3Client = new S3Client({
+  region: 'auto',
+  endpoint: `https://${import.meta.env.VITE_R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  credentials: {
+    accessKeyId: import.meta.env.VITE_R2_ACCESS_KEY_ID || '',
+    secretAccessKey: import.meta.env.VITE_R2_SECRET_ACCESS_KEY || '',
+  },
+});
 
 interface OmiiPublishAdPageProps {
   onBackToHome: () => void;
@@ -131,7 +144,6 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
 
   // Images state (up to 10 images)
   const [images, setImages] = useState<string[]>([]);
-  const [tempImageUrl, setTempImageUrl] = useState('');
 
   // Lugar state
   const [locationInput, setLocationInput] = useState('București');
@@ -151,6 +163,8 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const selectedCategoryObj = CATEGORIES.find(c => c.id === selectedCatId);
 
@@ -165,22 +179,69 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
     if (!description.trim() || description.length < 40) missing.push(lang === 'es' ? 'Descripción (mínimo 40 caracteres)' : 'Descriere (minim 40 caractere)');
     if (!price || Number(price) <= 0) missing.push(lang === 'es' ? 'Precio' : 'Preț');
     if (!condition) missing.push(lang === 'es' ? 'Estado/Condición' : 'Stare/Condiție');
-    if (images.length === 0 && !tempImageUrl.trim()) missing.push(lang === 'es' ? 'Imágenes' : 'Imagini');
+    if (images.length === 0) missing.push(lang === 'es' ? 'Imágenes' : 'Imagini');
     return missing;
   };
 
   const missingFields = getMissingFields();
   const isValid = missingFields.length === 0;
 
-  const handleAddImage = () => {
-    if (tempImageUrl.trim() && images.length < 10) {
-      setImages(prev => [...prev, tempImageUrl.trim()]);
-      setTempImageUrl('');
-    }
-  };
-
   const handleRemoveImage = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    const files = Array.from(e.target.files);
+    const availableSlots = 10 - images.length;
+    const filesToUpload = files.slice(0, availableSlots);
+
+    if (filesToUpload.length === 0) return;
+
+    setIsUploading(true);
+    setError(null);
+
+    const bucketName = import.meta.env.VITE_R2_BUCKET_NAME || '';
+    const publicUrl = import.meta.env.VITE_R2_PUBLIC_URL || '';
+
+    if (!bucketName) {
+      setError(lang === 'es' ? 'Falta configurar VITE_R2_BUCKET_NAME en el archivo .env.local' : 'Lipsește VITE_R2_BUCKET_NAME din .env.local');
+      setIsUploading(false);
+      return;
+    }
+
+    try {
+      const uploadPromises = filesToUpload.map(async (file) => {
+        const uniqueFileName = `${uuidv4()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+        
+        const command = new PutObjectCommand({
+          Bucket: bucketName,
+          Key: uniqueFileName,
+          ContentType: file.type,
+          Body: file,
+        });
+
+        await s3Client.send(command);
+
+        const finalUrl = publicUrl 
+          ? `${publicUrl}/${uniqueFileName}`
+          : `https://${bucketName}.${import.meta.env.VITE_R2_ACCOUNT_ID}.r2.cloudflarestorage.com/${uniqueFileName}`;
+          
+        return finalUrl;
+      });
+
+      const uploadedUrls = await Promise.all(uploadPromises);
+      setImages(prev => [...prev, ...uploadedUrls]);
+    } catch (err) {
+      console.error('Error uploading to R2:', err);
+      setError(lang === 'es' ? 'Error al subir la imagen. Por favor, revisa tu conexión o las claves R2 (CORS/Credentials).' : 'Eroare la încărcarea imaginii. Verificați setările R2 (CORS/Credentials).');
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = '';
+      }
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -197,7 +258,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
     try {
       const targetCategory = selectedCatId || 'Auto & Moto';
       const targetCollection = selectedCategoryObj?.collection || 'anuncios_auto';
-      const allImages = [...images, ...(tempImageUrl.trim() ? [tempImageUrl.trim()] : [])];
+      const allImages = [...images];
       const mainImage = allImages[0] || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=400';
 
       const user = auth.currentUser;
@@ -455,36 +516,37 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                         <button
                           type="button"
                           onClick={() => handleRemoveImage(idx)}
-                          className="absolute top-1 right-1 w-5 h-5 bg-red-600 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                          className="absolute top-1 right-1 w-5 h-5 bg-red-600 text-white rounded-full flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer z-10"
                         >
                           <X size={12} />
                         </button>
                       </div>
                     ))}
-                    {Array.from({ length: Math.max(0, 5 - images.length) }).map((_, idx) => (
-                      <div key={idx} className="aspect-square rounded-lg border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-gray-400">
+                    {images.length < 10 && (
+                      <div 
+                        onClick={() => !isUploading && fileInputRef.current?.click()}
+                        className={`aspect-square rounded-lg border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-gray-400 transition-colors ${isUploading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100'}`}
+                      >
+                        {isUploading ? <Loader2 size={18} className="animate-spin text-[#108474]" /> : <Camera size={18} />}
+                      </div>
+                    )}
+                    {Array.from({ length: Math.max(0, 4 - images.length) }).map((_, idx) => (
+                      <div key={idx} className="aspect-square rounded-lg border border-dashed border-gray-300 bg-gray-50 flex items-center justify-center text-gray-200">
                         <Camera size={18} />
                       </div>
                     ))}
                   </div>
 
-                  {/* Image URL Input box */}
-                  <div className="flex gap-2 pt-2">
-                    <input
-                      type="url"
-                      value={tempImageUrl}
-                      onChange={(e) => setTempImageUrl(e.target.value)}
-                      placeholder={lang === 'es' ? 'Pega el enlace URL de la imagen aquí...' : 'Adaugă link-ul foto (URL)...'}
-                      className="flex-1 px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleAddImage}
-                      className="px-3.5 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold text-xs rounded-lg transition-colors cursor-pointer"
-                    >
-                      {lang === 'es' ? 'Añadir' : 'Adaugă'}
-                    </button>
-                  </div>
+                  {/* Hidden File Input */}
+                  <input 
+                    type="file" 
+                    multiple 
+                    accept="image/jpeg,image/png,image/webp" 
+                    ref={fileInputRef} 
+                    className="hidden" 
+                    onChange={handleFileChange}
+                    disabled={isUploading}
+                  />
                 </div>
 
                 {/* Section 2: Lugar */}
