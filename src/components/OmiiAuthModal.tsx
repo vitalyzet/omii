@@ -84,6 +84,10 @@ export default function OmiiAuthModal({
         return lang === 'ro'
           ? 'Metoda de autentificare nu este activată în consola Firebase (Authentication > Sign-in method).'
           : 'El método de autenticación no está activado en la consola de Firebase (Authentication > Sign-in method).';
+      case 'auth/configuration-not-found':
+        return lang === 'ro'
+          ? 'Serviciul Authentication nu este activat în Firebase Console. Apasă pe "Get Started" în consola Firebase (Authentication).'
+          : 'El servicio Authentication no está activado en Firebase Console. Haz clic en "Get Started" en la consola de Firebase (Authentication).';
       case 'auth/unauthorized-domain':
         return lang === 'ro'
           ? 'Domeniul actual nu este autorizat în consola Firebase.'
