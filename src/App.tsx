@@ -12,6 +12,19 @@ import {
   Plus,
   Check
 } from 'lucide-react'
+import { 
+  onAuthStateChanged, 
+  signOut, 
+  User 
+} from 'firebase/auth';
+import { auth } from './firebase';
+import OmiiAuthModal from './components/OmiiAuthModal';
+import { 
+  User as UserIcon, 
+  LogOut, 
+  UserCheck, 
+  UserPlus 
+} from 'lucide-react';
 import ClassicLayout from './components/layouts/ClassicLayout'
 import ProLayout from './components/layouts/ProLayout'
 import OmiiFooter from './components/OmiiFooter'
@@ -27,9 +40,27 @@ function App() {
   const [userAvatar, setUserAvatar] = useState('/an74.png');
   const [currentLang, setCurrentLang] = useState<'ro' | 'es'>('ro');
   
+  // Firebase Auth State & Auth Modal States
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+
   const [homeResetKey, setHomeResetKey] = useState(0);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const settingsRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
+
+  // Listen to Firebase Auth state
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      if (user?.photoURL) {
+        setUserAvatar(user.photoURL);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleGoHome = () => {
     setActivePage('home');
@@ -37,11 +68,24 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Close dropdown when clicking outside
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setIsUserMenuOpen(false);
+      setActivePage('home');
+    } catch (err) {
+      console.error("Sign out error", err);
+    }
+  };
+
+  // Close dropdowns when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (settingsRef.current && !settingsRef.current.contains(event.target as Node)) {
         setIsSettingsOpen(false);
+      }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
@@ -215,18 +259,80 @@ function App() {
             <span>Admin</span>
           </button>
 
-          {/* User Profile Pill */}
-          <div 
-            onClick={() => setActivePage('panel')}
-            className="flex items-center gap-2.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200/70 rounded-full cursor-pointer transition-colors border border-gray-200/60 select-none"
-          >
-            <img 
-              src={userAvatar} 
-              alt="Alexandru.B" 
-              className="w-8 h-8 rounded-full object-cover border border-gray-300 shadow-xs"
-            />
-            <span className="font-bold text-sm text-gray-800 pr-1">Alexandru.B</span>
-          </div>
+          {/* User Profile / Auth Pill */}
+          {currentUser ? (
+            <div className="relative" ref={userMenuRef}>
+              <div 
+                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                className="flex items-center gap-2.5 px-3 py-1.5 bg-gray-100 hover:bg-gray-200/70 rounded-full cursor-pointer transition-colors border border-gray-200/60 select-none"
+              >
+                <img 
+                  src={currentUser.photoURL || userAvatar} 
+                  alt={currentUser.displayName || 'Utilizator'} 
+                  className="w-8 h-8 rounded-full object-cover border border-gray-300 shadow-xs"
+                />
+                <span className="font-bold text-sm text-gray-800 pr-1 max-w-[120px] truncate">
+                  {currentUser.displayName || currentUser.email?.split('@')[0] || 'Alexandru.B'}
+                </span>
+              </div>
+
+              {/* User Menu Dropdown */}
+              {isUserMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-200/80 py-1.5 overflow-hidden flex flex-col font-sans z-50">
+                  <div className="px-4 py-2 border-b border-gray-100">
+                    <p className="text-xs font-bold text-gray-900 truncate">
+                      {currentUser.displayName || 'Utilizator Omii'}
+                    </p>
+                    <p className="text-[11px] text-gray-400 truncate font-medium">
+                      {currentUser.email}
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      setActivePage('panel');
+                    }}
+                    className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-gray-50 transition-colors w-full text-left text-xs font-bold text-gray-700 cursor-pointer"
+                  >
+                    <UserCheck size={16} className="text-blue-600" />
+                    <span>{currentLang === 'ro' ? 'Panou Utilizator' : 'Panel de Usuario'}</span>
+                  </button>
+
+                  <button
+                    onClick={handleSignOut}
+                    className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-red-50 text-red-600 transition-colors w-full text-left text-xs font-bold border-t border-gray-100 cursor-pointer"
+                  >
+                    <LogOut size={16} />
+                    <span>{currentLang === 'ro' ? 'Deconectare' : 'Cerrar sesión'}</span>
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => {
+                  setAuthModalMode('login');
+                  setIsAuthModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200/80 rounded-full text-xs font-extrabold text-gray-800 border border-gray-200/70 transition-all cursor-pointer"
+              >
+                <UserIcon size={15} className="text-blue-600" />
+                <span>{currentLang === 'ro' ? 'Autentificare' : 'Iniciar sesión'}</span>
+              </button>
+              <button
+                onClick={() => {
+                  setAuthModalMode('register');
+                  setIsAuthModalOpen(true);
+                }}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs font-extrabold transition-all cursor-pointer shadow-xs"
+              >
+                <UserPlus size={15} />
+                <span>{currentLang === 'ro' ? 'Înregistrare' : 'Crear cuenta'}</span>
+              </button>
+            </div>
+          )}
 
           <button className="flex items-center gap-2.5 px-5 py-2 bg-[#ebf3ff] hover:bg-[#deebff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs transition-all cursor-pointer">
             <img src="/publish.png" alt="Publică" className="w-5 h-5 object-contain" />
@@ -244,7 +350,7 @@ function App() {
       ) : activePage === 'panel' ? (
         <OmiiUserPanelPage 
           onBackToHome={handleGoHome} 
-          currentAvatar={userAvatar}
+          currentAvatar={currentUser?.photoURL || userAvatar}
           onAvatarChange={setUserAvatar}
           lang={currentLang}
         />
@@ -256,6 +362,14 @@ function App() {
 
       {/* Footer Component */}
       <OmiiFooter onGoHome={handleGoHome} />
+
+      {/* Firebase Auth Modal (Login / Register / Forgot Password) */}
+      <OmiiAuthModal 
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
+        lang={currentLang}
+        initialMode={authModalMode}
+      />
     </div>
   )
 }
