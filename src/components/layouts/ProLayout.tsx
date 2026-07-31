@@ -17,9 +17,10 @@ import { TRANSLATIONS, Language } from '../../translations';
 
 interface ProLayoutProps {
   lang?: Language;
+  onSelectListing?: (listing: any) => void;
 }
 
-export default function ProLayout({ lang = 'ro' }: ProLayoutProps) {
+export default function ProLayout({ lang = 'ro', onSelectListing }: ProLayoutProps) {
   const t = TRANSLATIONS[lang];
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
@@ -133,7 +134,7 @@ export default function ProLayout({ lang = 'ro' }: ProLayoutProps) {
 
         {/* Main Content Grid Area */}
         <main className="w-full">
-          <OmiiListingGrid selectedCategory={selectedCategory} viewMode="pro" lang={lang} />
+          <OmiiListingGrid selectedCategory={selectedCategory} viewMode="pro" lang={lang} onSelectListing={onSelectListing} />
         </main>
       </div>
     </div>

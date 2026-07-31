@@ -69,6 +69,19 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  // Listen to global card click event for opening Listing Details Page
+  useEffect(() => {
+    const handleSelectListing = (e: any) => {
+      if (e.detail) {
+        setSelectedListing(e.detail);
+        setActivePage('detail');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('omii:select_listing', handleSelectListing);
+    return () => window.removeEventListener('omii:select_listing', handleSelectListing);
+  }, []);
+
   const handleGoHome = () => {
     setSelectedListing(null);
     setActivePage('home');
@@ -379,9 +392,9 @@ function App() {
           lang={currentLang}
         />
       ) : pageDesign === 'pro' ? (
-        <ProLayout key={homeResetKey} lang={currentLang} />
+        <ProLayout key={homeResetKey} lang={currentLang} onSelectListing={(item) => { setSelectedListing(item); setActivePage('detail'); }} />
       ) : (
-        <ClassicLayout key={homeResetKey} viewMode={viewMode} lang={currentLang} />
+        <ClassicLayout key={homeResetKey} viewMode={viewMode} lang={currentLang} onSelectListing={(item) => { setSelectedListing(item); setActivePage('detail'); }} />
       )}
 
       {/* Footer Component */}

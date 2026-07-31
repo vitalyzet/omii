@@ -4,19 +4,16 @@ import OmiiListingGrid from '../OmiiListingGrid';
 import { Language } from '../../translations';
 
 interface ClassicLayoutProps {
-  viewMode: 'grid' | 'list' | 'pro';
+  viewMode?: 'grid' | 'list';
   lang?: Language;
+  onSelectListing?: (listing: any) => void;
 }
 
-export default function ClassicLayout({ viewMode, lang = 'ro' }: ClassicLayoutProps) {
+export default function ClassicLayout({ viewMode = 'grid', lang = 'ro', onSelectListing }: ClassicLayoutProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const handleSelectCategory = (category: string) => {
-    if (selectedCategory === category) {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(category);
-    }
+  const handleSelectCategory = (category: string | null) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -30,7 +27,7 @@ export default function ClassicLayout({ viewMode, lang = 'ro' }: ClassicLayoutPr
         />
 
         <main className="flex-1 min-w-0">
-          <OmiiListingGrid selectedCategory={selectedCategory} viewMode={viewMode} lang={lang} />
+          <OmiiListingGrid selectedCategory={selectedCategory} viewMode={viewMode} lang={lang} onSelectListing={onSelectListing} />
         </main>
       </div>
     </div>
