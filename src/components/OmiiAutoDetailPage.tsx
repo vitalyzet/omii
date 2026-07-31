@@ -388,96 +388,99 @@ export default function OmiiAutoDetailPage({
           </div>
 
           {/* RIGHT STICKY ACTION COLUMN (4 Cols) */}
-          <div className="lg:col-span-4 sticky top-6 space-y-6">
+          <div className="lg:col-span-4 sticky top-6">
             
-            {/* 1. Price Box */}
-            <div className="bg-white rounded-2xl p-6 sm:p-7 border border-gray-200/90 shadow-md space-y-5">
-              <div>
-                <h2 className="text-3xl font-black text-gray-900 tracking-tight">
-                  {displayPrice}
-                </h2>
-                <h3 className="text-base font-extrabold text-gray-800 mt-1">
-                  {displayTitle}
-                </h3>
-                <p className="text-xs font-semibold text-gray-500 mt-0.5">
-                  {displayLocation}
-                </p>
-              </div>
-
-              {/* Price Comparison Box */}
-              <div className="bg-gray-100/70 p-3.5 rounded-2xl flex items-center gap-3">
-                <span className="bg-[#008060] text-white font-extrabold text-[11px] px-2.5 py-1 rounded-md tracking-wider uppercase shadow-2xs">
-                  EXCELENTE
-                </span>
-                <span className="text-xs font-bold text-gray-700">
-                  {lang === 'es' ? 'Comparación de precio' : 'Comparație de preț'}
-                </span>
-              </div>
-            </div>
-
-            {/* 2. Seller Box (The new design) */}
-            <div className="bg-white rounded-[24px] p-6 sm:p-7 border border-gray-200/80 shadow-md flex flex-col">
+            {/* Unified Seller & Price Card */}
+            <div className="bg-white rounded-[24px] p-6 sm:p-7 border border-gray-200/80 shadow-md space-y-6">
               
-              {/* Top Badge */}
-              <div className="bg-[#f0f9ff] text-[#0369a1] px-3.5 py-1.5 rounded-lg inline-flex items-center gap-2 self-start mb-6">
-                <User size={16} strokeWidth={2.5} />
-                <span className="text-xs font-extrabold tracking-wide uppercase">
-                  {lang === 'es' ? 'Vendedor particular' : 'Vânzător particular'}
-                </span>
+              {/* 1. Price & Title Section */}
+              <div className="space-y-4">
+                <div>
+                  <h2 className="text-3xl font-black text-gray-900 tracking-tight">
+                    {displayPrice}
+                  </h2>
+                  <h3 className="text-base font-extrabold text-gray-800 mt-1">
+                    {displayTitle}
+                  </h3>
+                  <p className="text-xs font-semibold text-gray-500 mt-0.5">
+                    {displayLocation}
+                  </p>
+                </div>
+
+                {/* Price Comparison Badge */}
+                <div className="bg-gray-100/70 p-3 rounded-2xl flex items-center gap-3">
+                  <span className="bg-[#008060] text-white font-extrabold text-[11px] px-2.5 py-1 rounded-md tracking-wider uppercase shadow-2xs">
+                    EXCELENTE
+                  </span>
+                  <span className="text-xs font-bold text-gray-700">
+                    {lang === 'es' ? 'Comparación de precio' : 'Comparație de preț'}
+                  </span>
+                </div>
               </div>
 
-              {/* Seller Info Row */}
-              <div className="flex items-start gap-4 mb-6">
-                {/* Avatar */}
-                <div className="w-16 h-16 rounded-2xl bg-[#e0f2fe] flex items-center justify-center shrink-0">
-                  <User size={28} className="text-[#0284c7]" strokeWidth={2} />
+              {/* Subtle Divider */}
+              <hr className="border-gray-100" />
+
+              {/* 2. Seller Information Section */}
+              <div className="space-y-4">
+                {/* Top Badge */}
+                <div className="bg-[#f0f9ff] text-[#0369a1] px-3.5 py-1.5 rounded-lg inline-flex items-center gap-2 self-start">
+                  <User size={15} strokeWidth={2.5} />
+                  <span className="text-xs font-extrabold tracking-wide uppercase">
+                    {lang === 'es' ? 'Vendedor particular' : 'Vânzător particular'}
+                  </span>
                 </div>
-                
-                {/* Info */}
-                <div className="flex flex-col pt-0.5">
-                  <h4 className="text-[19px] font-black text-gray-900 leading-tight">Alexandru B.</h4>
+
+                {/* Seller Profile Row */}
+                <div className="flex items-start gap-4">
+                  {/* Avatar */}
+                  <div className="w-14 h-14 rounded-2xl bg-[#e0f2fe] flex items-center justify-center shrink-0">
+                    <User size={26} className="text-[#0284c7]" strokeWidth={2} />
+                  </div>
                   
-                  <div className="flex items-center flex-wrap gap-x-3 gap-y-1 mt-1.5 text-xs">
-                    <span className="flex items-center gap-1 text-[#16a34a] font-bold">
-                      <ShieldCheck size={14} strokeWidth={2.5} /> {lang === 'es' ? 'Verificado' : 'Verificat'}
-                    </span>
-                    <span className="flex items-center gap-1 text-gray-400 font-semibold">
-                      <Clock size={14} /> {lang === 'es' ? 'En omii desde 2026' : 'Pe omii din 2026'}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 mt-2">
-                    <div className="flex items-center text-[#fbbf24]">
-                      <Star size={14} className="fill-current" />
-                      <Star size={14} className="fill-current" />
-                      <Star size={14} className="fill-current" />
-                      <Star size={14} className="fill-current" />
-                      <Star size={14} className="fill-current" />
+                  {/* Info */}
+                  <div className="flex flex-col pt-0.5">
+                    <h4 className="text-lg font-black text-gray-900 leading-tight">Alexandru B.</h4>
+                    
+                    <div className="flex items-center flex-wrap gap-x-2.5 gap-y-1 mt-1 text-xs">
+                      <span className="flex items-center gap-1 text-[#16a34a] font-bold">
+                        <ShieldCheck size={13} strokeWidth={2.5} /> {lang === 'es' ? 'Verificado' : 'Verificat'}
+                      </span>
+                      <span className="flex items-center gap-1 text-gray-400 font-semibold">
+                        <Clock size={13} /> {lang === 'es' ? 'En omii desde 2026' : 'Pe omii din 2026'}
+                      </span>
                     </div>
-                    <span className="text-xs font-black text-gray-900 ml-1">5.0 (3)</span>
+
+                    <div className="flex items-center gap-1.5 mt-1.5">
+                      <div className="flex items-center text-[#fbbf24]">
+                        <Star size={13} className="fill-current" />
+                        <Star size={13} className="fill-current" />
+                        <Star size={13} className="fill-current" />
+                        <Star size={13} className="fill-current" />
+                        <Star size={13} className="fill-current" />
+                      </div>
+                      <span className="text-xs font-black text-gray-900 ml-1">5.0 (3)</span>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              {/* Divider */}
-              <hr className="border-gray-100 mb-6" />
-
-              {/* Action Buttons */}
-              <div className="space-y-3.5">
+              {/* 3. Action Buttons Section */}
+              <div className="space-y-3 pt-1">
                 <button
                   type="button"
-                  className="w-full py-4 px-4 bg-[#0ea5e9] hover:bg-[#0284c7] active:scale-[0.99] text-white font-extrabold text-[15px] rounded-2xl transition-all cursor-pointer flex items-center justify-center gap-2.5 shadow-sm"
+                  className="w-full py-3.5 px-4 bg-[#0ea5e9] hover:bg-[#0284c7] active:scale-[0.99] text-white font-extrabold text-[15px] rounded-2xl transition-all cursor-pointer flex items-center justify-center gap-2.5 shadow-sm"
                 >
-                  <Phone size={20} />
+                  <Phone size={19} />
                   <span>{lang === 'es' ? 'Mostrar teléfono' : 'Afișează telefonul'}</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={() => alert(lang === 'es' ? 'Mensaje enviado al vendedor.' : 'Mesaj trimis vânzătorului.')}
-                  className="w-full py-4 px-4 bg-white hover:bg-gray-50 active:scale-[0.99] text-[#1e293b] font-extrabold text-[15px] rounded-2xl transition-all cursor-pointer border-2 border-gray-100 flex items-center justify-center gap-2.5"
+                  className="w-full py-3.5 px-4 bg-white hover:bg-gray-50 active:scale-[0.99] text-[#1e293b] font-extrabold text-[15px] rounded-2xl transition-all cursor-pointer border-2 border-gray-100 flex items-center justify-center gap-2.5"
                 >
-                  <MessageSquare size={20} />
+                  <MessageSquare size={19} />
                   <span>{lang === 'es' ? 'Enviar mensaje' : 'Trimite mesaj'}</span>
                 </button>
               </div>
