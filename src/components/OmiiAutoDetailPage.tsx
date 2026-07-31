@@ -155,14 +155,14 @@ export default function OmiiAutoDetailPage({
             <span className="text-gray-300">/</span>
             <span className="text-gray-400">vindu24</span>
             <span className="text-gray-300">/</span>
-            <span className="text-[#139E69] font-bold">Auto & Moto</span>
+            <span className="text-[#008060] font-bold">Auto & Moto</span>
             <span className="text-gray-300">/</span>
             <span className="text-gray-600 truncate max-w-[200px]">{displayTitle}</span>
           </div>
 
           {/* Live Viewers & Favorites Badge from imoob */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-[#F0F9FF] border border-blue-100 px-3 py-1.5 rounded-xl text-xs font-extrabold text-[#0C4A6E]">
+            <div className="flex items-center gap-2 bg-[#eef7f5] border border-[#bce0da] px-3 py-1.5 rounded-xl text-xs font-extrabold text-[#0C4A6E]">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
@@ -221,7 +221,7 @@ export default function OmiiAutoDetailPage({
                       e.stopPropagation();
                       alert(lang === 'es' ? 'Enlace copiado al portapapeles' : 'Link copiat în clipboard');
                     }}
-                    className="p-2.5 bg-white/90 hover:bg-white text-gray-700 hover:text-blue-600 rounded-full shadow-md backdrop-blur-xs border border-gray-200 transition-transform active:scale-90 cursor-pointer"
+                    className="p-2.5 bg-white/90 hover:bg-white text-gray-700 hover:text-[#108474] rounded-full shadow-md backdrop-blur-xs border border-gray-200 transition-transform active:scale-90 cursor-pointer"
                   >
                     <Share2 size={18} />
                   </button>
@@ -251,7 +251,7 @@ export default function OmiiAutoDetailPage({
                       e.stopPropagation();
                       setIsLightboxOpen(true);
                     }}
-                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#2563EB] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer"
+                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#108474] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer"
                   >
                     <Grid size={15} />
                     <span>{lang === 'es' ? 'Todas las imágenes' : 'Toate imaginile'}</span>
@@ -262,7 +262,7 @@ export default function OmiiAutoDetailPage({
                       e.stopPropagation();
                       setIsLightboxOpen(true);
                     }}
-                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#2563EB] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer"
+                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#108474] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer"
                   >
                     <Maximize2 size={15} />
                     <span>{lang === 'es' ? 'Maximizar' : 'Mărește photo'}</span>
@@ -277,7 +277,7 @@ export default function OmiiAutoDetailPage({
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
                     className={`relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
-                      activeImageIndex === idx ? 'border-[#3E42A5] ring-2 ring-indigo-500/20 scale-105' : 'border-transparent opacity-70 hover:opacity-100'
+                      activeImageIndex === idx ? 'border-[#108474] ring-2 ring-[#108474]/20 scale-105' : 'border-transparent opacity-70 hover:opacity-100'
                     }`}
                   >
                     <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
@@ -291,7 +291,7 @@ export default function OmiiAutoDetailPage({
               
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-y-6 gap-x-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <Flag size={20} />
                   </div>
                   <div>
@@ -301,7 +301,7 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <Clock size={20} />
                   </div>
                   <div>
@@ -311,7 +311,7 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <Settings size={20} />
                   </div>
                   <div>
@@ -321,7 +321,7 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <Calendar size={20} />
                   </div>
                   <div>
@@ -331,7 +331,7 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <User size={20} />
                   </div>
                   <div>
@@ -376,7 +376,7 @@ export default function OmiiAutoDetailPage({
                   </div>
                   <div className="flex items-center gap-3 mt-1">
                     <span className="text-3xl font-black text-gray-900">93.0%</span>
-                    <span className="bg-[#10B981] text-white font-extrabold text-xs px-3 py-1 rounded-lg flex items-center gap-1.5">
+                    <span className="bg-[#008060] text-white font-extrabold text-xs px-3 py-1 rounded-lg flex items-center gap-1.5">
                       🔋 {lang === 'es' ? 'Muy buena' : 'Excelentă'}
                     </span>
                   </div>
@@ -385,7 +385,7 @@ export default function OmiiAutoDetailPage({
                 <button 
                   type="button"
                   onClick={() => alert(lang === 'es' ? 'Certificado de batería verificado: OK 93.0%' : 'Certificat baterie verificat: OK 93.0%')}
-                  className="px-4 py-2.5 bg-[#6D28D9] hover:bg-[#5B21B6] text-white font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-2 self-start sm:self-auto"
+                  className="px-4 py-2.5 bg-[#108474] hover:bg-[#5B21B6] text-white font-extrabold text-xs rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-2 self-start sm:self-auto"
                 >
                   <ShieldCheck size={16} />
                   <span>{lang === 'es' ? 'Mostrar certificado de batería' : 'Arată certificat baterie'}</span>
@@ -395,7 +395,7 @@ export default function OmiiAutoDetailPage({
               {/* Battery Stats Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <Zap size={20} />
                   </div>
                   <div>
@@ -407,7 +407,7 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <ShieldCheck size={20} />
                   </div>
                   <div>
@@ -421,7 +421,7 @@ export default function OmiiAutoDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-orange-50 text-[#D94600] flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                     <BatteryCharging size={20} />
                   </div>
                   <div>
@@ -468,7 +468,7 @@ export default function OmiiAutoDetailPage({
                 <button
                   type="button"
                   onClick={() => setShowMoreBattery(!showMoreBattery)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#7C3AED] hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#108474] hover:underline cursor-pointer"
                 >
                   <span>{showMoreBattery ? (lang === 'es' ? 'Mostrar menos' : 'Arată mai puțin') : (lang === 'es' ? 'Mostrar más' : 'Arată mai mult')}</span>
                   {showMoreBattery ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -599,7 +599,7 @@ export default function OmiiAutoDetailPage({
                 <button
                   type="button"
                   onClick={() => setShowMoreSpecs(!showMoreSpecs)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#2563EB] hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#108474] hover:underline cursor-pointer"
                 >
                   <span>{showMoreSpecs ? (lang === 'es' ? 'Mostrar menos' : 'Arată mai puțin') : (lang === 'es' ? 'Mostrar más' : 'Arată mai mult')}</span>
                   {showMoreSpecs ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -629,7 +629,7 @@ export default function OmiiAutoDetailPage({
 
               {/* Price Comparison Box */}
               <div className="bg-gray-100/70 p-3.5 rounded-2xl flex items-center gap-3">
-                <span className="bg-[#10B981] text-white font-extrabold text-[11px] px-2.5 py-1 rounded-md tracking-wider uppercase shadow-2xs">
+                <span className="bg-[#008060] text-white font-extrabold text-[11px] px-2.5 py-1 rounded-md tracking-wider uppercase shadow-2xs">
                   EXCELENTE
                 </span>
                 <span className="text-xs font-bold text-gray-700">
@@ -641,7 +641,7 @@ export default function OmiiAutoDetailPage({
               <button
                 type="button"
                 onClick={() => alert(lang === 'es' ? 'Mensaje enviado al vendedor.' : 'Mesaj trimis vânzătorului.')}
-                className="w-full py-3.5 px-4 bg-[#2563EB] hover:bg-blue-700 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 bg-[#108474] hover:bg-[#0e7063] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
               >
                 <Mail size={18} />
                 <span>{lang === 'es' ? 'Enviar mensaje' : 'Trimite mesaj'}</span>
@@ -650,7 +650,7 @@ export default function OmiiAutoDetailPage({
               {/* imoob Green Call Agent Button */}
               <a 
                 href="tel:+40733987654"
-                className="w-full py-3.5 px-4 bg-[#22c55e] hover:bg-[#16a34a] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 bg-[#008060] hover:bg-[#006c51] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
               >
                 <Phone size={18} />
                 <span>{lang === 'es' ? 'Llamar al vendedor' : 'Apelează vânzătorul'}</span>

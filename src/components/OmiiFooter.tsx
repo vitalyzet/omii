@@ -24,7 +24,7 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
       <div className="border-b border-gray-100 bg-gray-50/50 py-8">
         <div className="max-w-[1360px] mx-auto px-6 md:px-12 lg:px-16 grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center flex-shrink-0">
               <ShieldCheck size={20} />
             </div>
             <div>
@@ -34,7 +34,7 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#e5f2ef] text-[#00664d] flex items-center justify-center flex-shrink-0">
               <Car size={20} />
             </div>
             <div>
@@ -44,7 +44,7 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center flex-shrink-0">
               <Building2 size={20} />
             </div>
             <div>
@@ -80,22 +80,22 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
                 alt="Omii Logo" 
                 className="w-9 h-9 object-contain group-hover:scale-105 transition-transform" 
               />
-              <span className="font-bold text-2xl text-gray-900 tracking-tight group-hover:text-blue-600 transition-colors">Omii</span>
+              <span className="font-bold text-2xl text-gray-900 tracking-tight group-hover:text-[#108474] transition-colors">Omii</span>
             </div>
             <p className="text-sm text-gray-500 leading-relaxed max-w-sm">
               Platforma ta de încredere pentru anunțuri din România: imobiliare, auto, locuri de muncă, servicii și multe altele. Simplu, sigur și rapid.
             </p>
             <div className="flex items-center gap-3 pt-2">
-              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
+              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-[#108474] hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
                 FB
               </a>
-              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
+              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-[#108474] hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
                 IG
               </a>
-              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
+              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-[#108474] hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
                 LN
               </a>
-              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-indigo-600 hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
+              <a href="#" className="w-9 h-9 rounded-xl bg-gray-100 hover:bg-[#108474] hover:text-white transition-colors flex items-center justify-center text-gray-600 font-bold text-xs">
                 YT
               </a>
             </div>
@@ -105,13 +105,13 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
           <div>
             <h3 className="font-bold text-sm text-gray-900 uppercase tracking-wider mb-4">Categorii</h3>
             <ul className="space-y-2.5 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Vehicule</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Imobiliare</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Locuri de muncă</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Compraventa</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Servicii</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Negocios</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Ocio</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Vehicule</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Imobiliare</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Locuri de muncă</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Compraventa</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Servicii</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Negocios</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Ocio</a></li>
             </ul>
           </div>
 
@@ -119,12 +119,12 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
           <div>
             <h3 className="font-bold text-sm text-gray-900 uppercase tracking-wider mb-4">Informații</h3>
             <ul className="space-y-2.5 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Despre noi</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Cum funcționează</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Ajutor & FAQ</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Reguli de siguranță</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Termeni și condiții</a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors">Politica de confidențialitate</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Despre noi</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Cum funcționează</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Ajutor & FAQ</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Reguli de siguranță</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Termeni și condiții</a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors">Politica de confidențialitate</a></li>
             </ul>
           </div>
 
@@ -132,12 +132,12 @@ export default function OmiiFooter({ onGoHome }: OmiiFooterProps) {
           <div>
             <h3 className="font-bold text-sm text-gray-900 uppercase tracking-wider mb-4">Orașe Principale</h3>
             <ul className="space-y-2.5 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-indigo-600 transition-colors flex items-center justify-between">București <ArrowUpRight size={12} /></a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors flex items-center justify-between">Cluj-Napoca <ArrowUpRight size={12} /></a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors flex items-center justify-between">Timișoara <ArrowUpRight size={12} /></a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors flex items-center justify-between">Brașov <ArrowUpRight size={12} /></a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors flex items-center justify-between">Iași <ArrowUpRight size={12} /></a></li>
-              <li><a href="#" className="hover:text-indigo-600 transition-colors flex items-center justify-between">Constanța <ArrowUpRight size={12} /></a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors flex items-center justify-between">București <ArrowUpRight size={12} /></a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors flex items-center justify-between">Cluj-Napoca <ArrowUpRight size={12} /></a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors flex items-center justify-between">Timișoara <ArrowUpRight size={12} /></a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors flex items-center justify-between">Brașov <ArrowUpRight size={12} /></a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors flex items-center justify-between">Iași <ArrowUpRight size={12} /></a></li>
+              <li><a href="#" className="hover:text-[#108474] transition-colors flex items-center justify-between">Constanța <ArrowUpRight size={12} /></a></li>
             </ul>
           </div>
 

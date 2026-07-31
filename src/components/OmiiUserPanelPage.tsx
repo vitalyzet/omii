@@ -183,7 +183,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
           <div className="flex items-center gap-4">
             <button 
               onClick={onBackToHome}
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-semibold text-sm transition-colors py-1.5 px-3 rounded-xl hover:bg-gray-100 cursor-pointer"
+              className="flex items-center gap-2 text-gray-600 hover:text-[#108474] font-semibold text-sm transition-colors py-1.5 px-3 rounded-xl hover:bg-gray-100 cursor-pointer"
             >
               <ArrowLeft size={18} />
               <span>Înapoi la pagina principală</span>
@@ -194,12 +194,12 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
 
           {/* Top Right Credits and Karma summary */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#ebf3ff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs">
+            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#eef7f5] rounded-full border border-[#bce0da] text-sm font-extrabold text-[#108474] shadow-2xs">
               <img src="/credits.png" alt="Créditos" className="w-6 h-6 object-contain" />
               <span>0 Créditos</span>
             </div>
 
-            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#ebf3ff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs">
+            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#eef7f5] rounded-full border border-[#bce0da] text-sm font-extrabold text-[#108474] shadow-2xs">
               <img src="/karma.png" alt="Karma" className="w-6 h-6 object-contain" />
               <span>0 Karma</span>
             </div>
@@ -229,7 +229,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                 <h2 className="text-base font-bold text-gray-900 truncate">Alexandru b.</h2>
                 <button 
                   onClick={() => setActiveTab('Perfil')}
-                  className="text-xs font-semibold text-blue-600 hover:text-blue-700 hover:underline transition-colors cursor-pointer flex items-center gap-0.5"
+                  className="text-xs font-semibold text-[#108474] hover:text-[#0e7063] hover:underline transition-colors cursor-pointer flex items-center gap-0.5"
                 >
                   <span>{t.viewProfile}</span>
                   <ChevronRight size={13} />
@@ -265,7 +265,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
           </div>
 
           {/* Far Right: Action Button */}
-          <button className="flex items-center gap-2.5 px-5 py-2.5 bg-[#ebf3ff] hover:bg-[#deebff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs transition-all cursor-pointer shrink-0">
+          <button className="flex items-center gap-2.5 px-5 py-2.5 bg-[#eef7f5] hover:bg-[#deebff] rounded-full border border-[#bce0da] text-sm font-extrabold text-[#108474] shadow-2xs transition-all cursor-pointer shrink-0">
             <img src="/publish.png" alt="Publică" className="w-5 h-5 object-contain" />
             <span>Adaugă anunț nou</span>
           </button>
@@ -294,13 +294,13 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       }}
                       className={`relative w-full flex items-center justify-between px-5 py-3 text-left transition-colors cursor-pointer group ${
                         isActive 
-                          ? 'bg-[#ebf3ff] text-[#005944] font-bold border-y border-[#d6e6ff]/60' 
+                          ? 'bg-[#eef7f5] text-[#108474] font-bold border-y border-[#bce0da]/60' 
                           : 'hover:bg-gray-50 text-gray-700 font-medium'
                       }`}
                     >
                       {/* Active Left Indicator Bar */}
                       {isActive && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-7 bg-[#005944] rounded-r-md" />
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-7 bg-[#108474] rounded-r-md" />
                       )}
 
                       <div className="flex items-center gap-3.5">
@@ -314,7 +314,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
 
                       {item.hasSubmenu && (
                         isExpanded ? (
-                          <ChevronDown size={17} className="text-[#005944] font-medium transition-transform duration-200" />
+                          <ChevronDown size={17} className="text-[#108474] font-medium transition-transform duration-200" />
                         ) : (
                           <ChevronRight size={17} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
                         )
@@ -342,8 +342,8 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                               }}
                               className={`w-full text-left py-1.5 px-3 text-[14px] font-medium transition-all rounded-xl cursor-pointer ${
                                 isSubActive
-                                  ? 'text-[#005944] font-bold bg-[#ebf3ff] border border-[#d6e6ff]/80 shadow-2xs'
-                                  : 'text-gray-600 hover:text-[#005944] hover:bg-gray-100/80'
+                                  ? 'text-[#108474] font-bold bg-[#eef7f5] border border-[#bce0da]/80 shadow-2xs'
+                                  : 'text-gray-600 hover:text-[#108474] hover:bg-gray-100/80'
                               }`}
                             >
                               {sub.label}
@@ -384,13 +384,13 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                           onClick={() => setStatusFilter(st.id as any)}
                           className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                             isActive 
-                              ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff] shadow-2xs font-extrabold' 
+                              ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da] shadow-2xs font-extrabold' 
                               : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200/80 font-medium'
                           }`}
                         >
                           <span>{st.label}</span>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                            isActive ? 'bg-[#005944] text-white' : 'bg-gray-100 text-gray-500'
+                            isActive ? 'bg-[#108474] text-white' : 'bg-gray-100 text-gray-500'
                           }`}>
                             {st.count}
                           </span>
@@ -405,7 +405,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       onClick={() => setPanelViewMode('list')}
                       className={`p-2 rounded-xl transition-colors cursor-pointer ${
                         panelViewMode === 'list' 
-                          ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                          ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                           : 'text-gray-400 hover:text-gray-700'
                       }`}
                       title="Vedere listă"
@@ -416,7 +416,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       onClick={() => setPanelViewMode('grid')}
                       className={`p-2 rounded-xl transition-colors cursor-pointer ${
                         panelViewMode === 'grid' 
-                          ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                          ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                           : 'text-gray-400 hover:text-gray-700'
                       }`}
                       title="Vedere grilă (2 pe rând)"
@@ -452,7 +452,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                               <div className="flex items-center gap-2 flex-wrap">
                                 <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-md border ${
                                   ad.statusCode === 'active' 
-                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80' 
+                                    ? 'bg-[#e5f2ef] text-emerald-700 border-emerald-200/80' 
                                     : ad.statusCode === 'review'
                                     ? 'bg-amber-50 text-amber-700 border-amber-200/80'
                                     : 'bg-red-50 text-red-700 border-red-200/80'
@@ -490,7 +490,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                             </div>
 
                             <div className="flex items-center gap-2 shrink-0">
-                              <button className="flex items-center gap-1 px-3 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs" title="Editează">
+                              <button className="flex items-center gap-1 px-3 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs" title="Editează">
                                 <img src="/publish.png" alt="Editează" className="w-3.5 h-3.5 object-contain" />
                                 <span>{lang === 'ro' ? 'Editează' : 'Editar'}</span>
                               </button>
@@ -527,7 +527,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                             <div className="flex items-center gap-2 flex-wrap">
                               <span className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-md border ${
                                 ad.statusCode === 'active' 
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80' 
+                                  ? 'bg-[#e5f2ef] text-emerald-700 border-emerald-200/80' 
                                   : ad.statusCode === 'review'
                                   ? 'bg-amber-50 text-amber-700 border-amber-200/80'
                                   : 'bg-red-50 text-red-700 border-red-200/80'
@@ -546,10 +546,10 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                               
                               <div className="flex items-center gap-1.5 text-xs font-bold text-gray-700 bg-gray-50 px-3 py-1 rounded-full border border-gray-200/70 shadow-2xs">
                                 <div className="flex gap-0.5">
-                                  <span className="w-2.5 h-1.5 rounded-xs bg-emerald-500" />
-                                  <span className="w-2.5 h-1.5 rounded-xs bg-emerald-500" />
-                                  <span className="w-2.5 h-1.5 rounded-xs bg-emerald-500" />
-                                  <span className="w-2.5 h-1.5 rounded-xs bg-emerald-500" />
+                                  <span className="w-2.5 h-1.5 rounded-xs bg-[#008060]" />
+                                  <span className="w-2.5 h-1.5 rounded-xs bg-[#008060]" />
+                                  <span className="w-2.5 h-1.5 rounded-xs bg-[#008060]" />
+                                  <span className="w-2.5 h-1.5 rounded-xs bg-[#008060]" />
                                   <span className="w-2.5 h-1.5 rounded-xs bg-gray-200" />
                                 </div>
                                 <span>{lang === 'ro' ? 'Preț corect' : 'Precio justo'}</span>
@@ -593,7 +593,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
 
                           {/* Right Action Buttons with Image Icons matching screenshot */}
                           <div className="flex items-center gap-2.5 shrink-0">
-                            <button className="flex items-center gap-1.5 px-4 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs" title="Editează">
+                            <button className="flex items-center gap-1.5 px-4 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs" title="Editează">
                               <img src="/publish.png" alt="Editează" className="w-4 h-4 object-contain" />
                               <span>{lang === 'ro' ? 'Editează' : 'Editar'}</span>
                             </button>
@@ -626,7 +626,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       alt="Alexandru b." 
                       className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg group-hover:opacity-90 transition-opacity"
                     />
-                    <button type="button" className="absolute bottom-0 right-0 p-2 bg-[#005944] hover:bg-[#004736] text-white rounded-full shadow-md transition-transform hover:scale-110 cursor-pointer" title="Schimbă poza de profil">
+                    <button type="button" className="absolute bottom-0 right-0 p-2 bg-[#108474] hover:bg-[#004736] text-white rounded-full shadow-md transition-transform hover:scale-110 cursor-pointer" title="Schimbă poza de profil">
                       <Camera size={16} />
                     </button>
                   </div>
@@ -653,7 +653,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       <button
                         type="button"
                         onClick={() => setIsAvatarModalOpen(true)}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] text-xs font-extrabold rounded-full border border-[#d6e6ff] transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] text-xs font-extrabold rounded-full border border-[#bce0da] transition-colors cursor-pointer"
                       >
                         <User size={14} />
                         <span>{t.chooseAvatar}</span>
@@ -676,13 +676,13 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                     {/* Name */}
                     <div>
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <User size={14} className="text-[#005944]" /> {t.fullName}
+                        <User size={14} className="text-[#108474]" /> {t.fullName}
                       </label>
                       <input 
                         type="text" 
                         value={profileData.name} 
                         onChange={(e) => setProfileData({ ...profileData, name: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all"
+                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all"
                         required
                       />
                     </div>
@@ -690,13 +690,13 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                     {/* Username */}
                     <div>
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <User size={14} className="text-[#005944]" /> {t.username}
+                        <User size={14} className="text-[#108474]" /> {t.username}
                       </label>
                       <input 
                         type="text" 
                         value={profileData.username} 
                         onChange={(e) => setProfileData({ ...profileData, username: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all"
+                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all"
                         required
                       />
                     </div>
@@ -704,14 +704,14 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                     {/* Email */}
                     <div>
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <Mail size={14} className="text-[#005944]" /> {t.email}
+                        <Mail size={14} className="text-[#108474]" /> {t.email}
                       </label>
                       <div className="relative">
                         <input 
                           type="email" 
                           value={profileData.email} 
                           onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                          className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all"
+                          className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all"
                           required
                         />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-green-600 bg-green-50 px-2.5 py-0.5 rounded-full border border-green-200">
@@ -723,14 +723,14 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                     {/* Phone */}
                     <div>
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <Phone size={14} className="text-[#005944]" /> {t.phone}
+                        <Phone size={14} className="text-[#108474]" /> {t.phone}
                       </label>
                       <div className="relative">
                         <input 
                           type="tel" 
                           value={profileData.phone} 
                           onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                          className="w-full px-4 py-3 pr-40 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all"
+                          className="w-full px-4 py-3 pr-40 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all"
                         />
                         <button
                           type="button"
@@ -747,13 +747,13 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                     {/* City */}
                     <div>
                       <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2 flex items-center gap-2">
-                        <MapPin size={14} className="text-[#005944]" /> {t.city}
+                        <MapPin size={14} className="text-[#108474]" /> {t.city}
                       </label>
                       <input 
                         type="text" 
                         value={profileData.city} 
                         onChange={(e) => setProfileData({ ...profileData, city: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all"
+                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all"
                       />
                     </div>
 
@@ -765,7 +765,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       <select 
                         value={profileData.accountType} 
                         onChange={(e) => setProfileData({ ...profileData, accountType: e.target.value })}
-                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all"
+                        className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all"
                       >
                         <option value="Persoană fizică">{t.individual}</option>
                         <option value="Companie / Dealer">{t.company}</option>
@@ -782,7 +782,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       rows={3} 
                       value={profileData.bio} 
                       onChange={(e) => setProfileData({ ...profileData, bio: e.target.value })}
-                      className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#005944] focus:bg-white transition-all resize-none"
+                      className="w-full px-4 py-3 bg-gray-50/80 border border-gray-200 rounded-2xl text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#108474] focus:bg-white transition-all resize-none"
                     />
                   </div>
 
@@ -792,8 +792,8 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       type="submit" 
                       className={`flex items-center gap-2.5 px-6 py-2.5 rounded-full font-extrabold text-sm border shadow-2xs transition-all cursor-pointer ${
                         isSaved 
-                          ? 'bg-emerald-600 text-white border-emerald-700 shadow-md scale-105' 
-                          : 'bg-[#ebf3ff] hover:bg-[#deebff] border-[#d6e6ff] text-[#005944]'
+                          ? 'bg-[#00664d] text-white border-emerald-700 shadow-md scale-105' 
+                          : 'bg-[#eef7f5] hover:bg-[#deebff] border-[#bce0da] text-[#108474]'
                       }`}
                     >
                       {isSaved ? (
@@ -863,7 +863,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                     onClick={() => handleSelectAvatar(avatar)}
                     className={`relative p-2 rounded-2xl border-2 transition-all cursor-pointer group hover:scale-105 ${
                       isSelected 
-                        ? 'border-[#005944] bg-[#ebf3ff]/50 shadow-md ring-2 ring-[#005944]/30' 
+                        ? 'border-[#108474] bg-[#eef7f5]/50 shadow-md ring-2 ring-[#108474]/30' 
                         : 'border-gray-100 bg-gray-50/50 hover:border-gray-300 hover:bg-white'
                     }`}
                   >
@@ -873,7 +873,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
                       className="w-16 h-16 rounded-full object-cover mx-auto"
                     />
                     {isSelected && (
-                      <div className="absolute top-1 right-1 w-5 h-5 bg-[#005944] rounded-full flex items-center justify-center text-white text-xs shadow-xs">
+                      <div className="absolute top-1 right-1 w-5 h-5 bg-[#108474] rounded-full flex items-center justify-center text-white text-xs shadow-xs">
                         <Check size={12} className="stroke-[3]" />
                       </div>
                     )}
@@ -885,7 +885,7 @@ export default function OmiiUserPanelPage({ onBackToHome, currentAvatar: propsAv
             {/* Modal Footer */}
             <div className="pt-4 border-t border-gray-100 flex items-center justify-between text-xs text-gray-500">
               <span className="flex items-center gap-1.5 font-medium">
-                <Upload size={14} className="text-[#005944]" /> Sau încarcă o foto din dispozitiv
+                <Upload size={14} className="text-[#108474]" /> Sau încarcă o foto din dispozitiv
               </span>
               <button
                 onClick={() => setIsAvatarModalOpen(false)}

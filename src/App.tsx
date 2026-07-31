@@ -128,9 +128,9 @@ function App() {
             alt="Omii Logo" 
             className="w-9 h-9 object-contain group-hover:scale-105 transition-transform" 
           />
-          <span className="font-bold text-xl text-gray-800 group-hover:text-blue-600 transition-colors">Omii</span>
+          <span className="font-bold text-xl text-gray-800 group-hover:text-[#108474] transition-colors">Omii</span>
           {pageDesign === 'pro' && (
-            <span className="ml-2 bg-indigo-100 text-indigo-700 text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">PRO</span>
+            <span className="ml-2 bg-[#bce0da] text-[#0e7063] text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">PRO</span>
           )}
         </div>
         <div className="flex items-center space-x-4 relative" ref={settingsRef}>
@@ -200,13 +200,13 @@ function App() {
                 ) : (
                   <button 
                     onClick={() => setPageDesign('classic')}
-                    className="flex items-center justify-between px-3.5 py-2 bg-indigo-50/70 hover:bg-indigo-100/60 transition-colors w-full text-left text-sm text-indigo-700 font-semibold group"
+                    className="flex items-center justify-between px-3.5 py-2 bg-[#eef7f5]/70 hover:bg-[#bce0da]/60 transition-colors w-full text-left text-sm text-[#0e7063] font-semibold group"
                   >
                     <div className="flex items-center gap-3">
-                      <Crown size={18} className="text-indigo-600" />
+                      <Crown size={18} className="text-[#108474]" />
                       <span>Mod clasic</span>
                     </div>
-                    <span className="text-xs text-indigo-600 font-bold">Activo</span>
+                    <span className="text-xs text-[#108474] font-bold">Activo</span>
                   </button>
                 )}
 
@@ -233,15 +233,15 @@ function App() {
                 <button 
                   onClick={() => setCurrentLang('ro')}
                   className={`flex items-center justify-between px-3.5 py-2 transition-colors w-full text-left text-sm font-medium group cursor-pointer ${
-                    currentLang === 'ro' ? 'bg-indigo-50/80 text-indigo-900 font-bold' : 'hover:bg-gray-100/80 text-gray-700'
+                    currentLang === 'ro' ? 'bg-[#eef7f5]/80 text-[#06332d] font-bold' : 'hover:bg-gray-100/80 text-gray-700'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Globe size={18} className={currentLang === 'ro' ? 'text-indigo-600' : 'text-gray-500'} />
+                    <Globe size={18} className={currentLang === 'ro' ? 'text-[#108474]' : 'text-gray-500'} />
                     <span>Română (RO)</span>
                   </div>
                   {currentLang === 'ro' ? (
-                    <Check size={16} className="text-indigo-600 font-bold" />
+                    <Check size={16} className="text-[#108474] font-bold" />
                   ) : (
                     <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
                   )}
@@ -251,15 +251,15 @@ function App() {
                 <button 
                   onClick={() => setCurrentLang('es')}
                   className={`flex items-center justify-between px-3.5 py-2 transition-colors w-full text-left text-sm font-medium group cursor-pointer ${
-                    currentLang === 'es' ? 'bg-indigo-50/80 text-indigo-900 font-bold' : 'hover:bg-gray-100/80 text-gray-700'
+                    currentLang === 'es' ? 'bg-[#eef7f5]/80 text-[#06332d] font-bold' : 'hover:bg-gray-100/80 text-gray-700'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Globe size={18} className={currentLang === 'es' ? 'text-indigo-600' : 'text-gray-500'} />
+                    <Globe size={18} className={currentLang === 'es' ? 'text-[#108474]' : 'text-gray-500'} />
                     <span>Español (ES)</span>
                   </div>
                   {currentLang === 'es' ? (
-                    <Check size={16} className="text-indigo-600 font-bold" />
+                    <Check size={16} className="text-[#108474] font-bold" />
                   ) : (
                     <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600 transition-colors" />
                   )}
@@ -274,12 +274,12 @@ function App() {
             onClick={() => setActivePage('admin')}
             className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-black transition-all cursor-pointer shadow-2xs ${
               activePage === 'admin'
-                ? 'bg-[#005944] text-white'
-                : 'bg-[#ebf3ff] hover:bg-[#deebff] border border-[#d6e6ff] text-[#005944]'
+                ? 'bg-[#108474] text-white'
+                : 'bg-[#eef7f5] hover:bg-[#deebff] border border-[#bce0da] text-[#108474]'
             }`}
             title="Panoul de Administrare Omii"
           >
-            <span className={`w-2 h-2 rounded-full ${activePage === 'admin' ? 'bg-white' : 'bg-[#005944]'}`} />
+            <span className={`w-2 h-2 rounded-full ${activePage === 'admin' ? 'bg-white' : 'bg-[#108474]'}`} />
             <span>Admin</span>
           </button>
 
@@ -319,7 +319,7 @@ function App() {
                     }}
                     className="flex items-center gap-2.5 px-4 py-2.5 hover:bg-gray-50 transition-colors w-full text-left text-xs font-bold text-gray-700 cursor-pointer"
                   >
-                    <UserCheck size={16} className="text-blue-600" />
+                    <UserCheck size={16} className="text-[#108474]" />
                     <span>{currentLang === 'ro' ? 'Panou Utilizator' : 'Panel de Usuario'}</span>
                   </button>
 
@@ -342,7 +342,7 @@ function App() {
                 }}
                 className="flex items-center gap-1.5 px-3.5 py-1.5 bg-gray-100 hover:bg-gray-200/80 rounded-full text-xs font-extrabold text-gray-800 border border-gray-200/70 transition-all cursor-pointer"
               >
-                <UserIcon size={15} className="text-blue-600" />
+                <UserIcon size={15} className="text-[#108474]" />
                 <span>{currentLang === 'ro' ? 'Autentificare' : 'Iniciar sesión'}</span>
               </button>
               <button
@@ -350,7 +350,7 @@ function App() {
                   setAuthModalMode('register');
                   setIsAuthModalOpen(true);
                 }}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs font-extrabold transition-all cursor-pointer shadow-xs"
+                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#108474] hover:bg-[#0e7063] text-white rounded-full text-xs font-extrabold transition-all cursor-pointer shadow-xs"
               >
                 <UserPlus size={15} />
                 <span>{currentLang === 'ro' ? 'Înregistrare' : 'Crear cuenta'}</span>
@@ -360,7 +360,7 @@ function App() {
 
           <button 
             onClick={() => setActivePage('publish')}
-            className="flex items-center gap-2.5 px-5 py-2 bg-[#ebf3ff] hover:bg-[#deebff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs transition-all cursor-pointer active:scale-95"
+            className="flex items-center gap-2.5 px-5 py-2 bg-[#eef7f5] hover:bg-[#deebff] rounded-full border border-[#bce0da] text-sm font-extrabold text-[#108474] shadow-2xs transition-all cursor-pointer active:scale-95"
           >
             <img src="/publish.png" alt="Publică" className="w-5 h-5 object-contain" />
             <span>{currentLang === 'ro' ? 'Publică anunț' : 'Publicar anuncio'}</span>

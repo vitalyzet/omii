@@ -38,7 +38,7 @@ export default function OmiiListingClassicCard({
       <div className="p-4 flex flex-col flex-1 justify-between bg-white">
         <div>
           {/* Title in blue, uppercase-like */}
-          <h3 className="font-extrabold text-[15px] text-[#0066cc] uppercase line-clamp-2 leading-snug mb-1 group-hover:text-blue-700 transition-colors">
+          <h3 className="font-extrabold text-[15px] text-[#0066cc] uppercase line-clamp-2 leading-snug mb-1 group-hover:text-[#0e7063] transition-colors">
             {title}
           </h3>
 
@@ -54,7 +54,7 @@ export default function OmiiListingClassicCard({
         </div>
 
         {/* Separator line */}
-        <div className="w-full h-[1px] bg-blue-100/60 my-2.5"></div>
+        <div className="w-full h-[1px] bg-[#bce0da]/60 my-2.5"></div>
 
         {/* Footer: Location/Time and Heart */}
         <div className="flex justify-between items-end mt-auto pt-1">
@@ -64,7 +64,7 @@ export default function OmiiListingClassicCard({
           </div>
 
           {/* Heart icon on bottom right */}
-          <button className="text-[#0066cc] hover:text-blue-800 transition-colors bg-blue-50/60 p-2 rounded-full border-none cursor-pointer hover:bg-blue-100/60">
+          <button className="text-[#0066cc] hover:text-[#0a5248] transition-colors bg-[#eef7f5]/60 p-2 rounded-full border-none cursor-pointer hover:bg-[#bce0da]/60">
             <Heart size={18} strokeWidth={2} />
           </button>
         </div>

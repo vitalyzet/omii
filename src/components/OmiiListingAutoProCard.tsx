@@ -75,7 +75,7 @@ export default function OmiiListingAutoProCard({
         
         {/* Top Badge */}
         <div className="absolute top-12 left-3 z-10 flex flex-col gap-1.5">
-          <span className="bg-[#139E69] text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-sm w-fit">
+          <span className="bg-[#008060] text-white text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded shadow-sm w-fit">
             Nou
           </span>
         </div>

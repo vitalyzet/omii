@@ -32,7 +32,7 @@ export default function OmiiListingCard({
           <Heart size={18} className="text-gray-500 hover:text-red-500 cursor-pointer" />
         </div>
         {category && (
-          <div className="absolute top-2 left-2 bg-indigo-600/90 text-white text-xs px-2 py-1 rounded shadow-sm font-medium">
+          <div className="absolute top-2 left-2 bg-[#108474]/90 text-white text-xs px-2 py-1 rounded shadow-sm font-medium">
             {category}
           </div>
         )}
@@ -46,7 +46,7 @@ export default function OmiiListingCard({
         </div>
 
         <div className="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
-          <span className="font-bold text-lg text-indigo-700">{price}</span>
+          <span className="font-bold text-lg text-[#0e7063]">{price}</span>
           <div className="flex items-center text-gray-400 text-sm">
             <MapPin size={14} className="mr-1 flex-shrink-0" />
             <span className="truncate max-w-[100px]">{location}</span>

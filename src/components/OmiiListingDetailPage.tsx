@@ -165,14 +165,14 @@ export default function OmiiListingDetailPage({
             <span className="text-gray-300">/</span>
             <span className="text-gray-400">vindu24</span>
             <span className="text-gray-300">/</span>
-            <span className="text-[#139E69] font-bold">Imobiliare</span>
+            <span className="text-[#008060] font-bold">Imobiliare</span>
             <span className="text-gray-300">/</span>
             <span className="text-gray-600 truncate max-w-[200px]">{displayTitle}</span>
           </div>
 
           {/* Live Viewers & Favorites Badge */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-[#F0F9FF] border border-blue-100 px-3 py-1.5 rounded-xl text-xs font-extrabold text-[#0C4A6E]">
+            <div className="flex items-center gap-2 bg-[#eef7f5] border border-[#bce0da] px-3 py-1.5 rounded-xl text-xs font-extrabold text-[#0C4A6E]">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500"></span>
@@ -233,7 +233,7 @@ export default function OmiiListingDetailPage({
                       e.stopPropagation();
                       alert(lang === 'es' ? 'Enlace copiado al portapapeles' : 'Link copiat în clipboard');
                     }}
-                    className="p-2.5 bg-white/90 hover:bg-white text-gray-700 hover:text-blue-600 rounded-full shadow-md backdrop-blur-xs border border-gray-200 transition-transform active:scale-90 cursor-pointer"
+                    className="p-2.5 bg-white/90 hover:bg-white text-gray-700 hover:text-[#108474] rounded-full shadow-md backdrop-blur-xs border border-gray-200 transition-transform active:scale-90 cursor-pointer"
                   >
                     <Share2 size={18} />
                   </button>
@@ -263,7 +263,7 @@ export default function OmiiListingDetailPage({
                       e.stopPropagation();
                       setIsLightboxOpen(true);
                     }}
-                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#2563EB] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer transition-transform active:scale-95"
+                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#108474] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer transition-transform active:scale-95"
                   >
                     <Grid size={15} />
                     <span>{lang === 'es' ? 'Todas las imágenes' : 'Toate imaginile'}</span>
@@ -274,7 +274,7 @@ export default function OmiiListingDetailPage({
                       e.stopPropagation();
                       setIsLightboxOpen(true);
                     }}
-                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#2563EB] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer transition-transform active:scale-95"
+                    className="pointer-events-auto bg-white/90 hover:bg-white text-[#108474] font-bold text-xs px-3.5 py-2 rounded-xl shadow-md border border-gray-200 backdrop-blur-xs flex items-center gap-1.5 cursor-pointer transition-transform active:scale-95"
                   >
                     <Maximize2 size={15} />
                     <span>{lang === 'es' ? 'Maximizar' : 'Mărește photo'}</span>
@@ -289,7 +289,7 @@ export default function OmiiListingDetailPage({
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
                     className={`relative w-16 h-14 sm:w-20 sm:h-16 rounded-xl overflow-hidden shrink-0 border-2 transition-all cursor-pointer ${
-                      activeImageIndex === idx ? 'border-[#3E42A5] ring-2 ring-indigo-500/20 scale-105' : 'border-transparent opacity-70 hover:opacity-100'
+                      activeImageIndex === idx ? 'border-[#108474] ring-2 ring-[#108474]/20 scale-105' : 'border-transparent opacity-70 hover:opacity-100'
                     }`}
                   >
                     <img src={img} alt={`Thumb ${idx + 1}`} className="w-full h-full object-cover" />
@@ -303,7 +303,7 @@ export default function OmiiListingDetailPage({
               {isAuto ? (
                 <>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0 font-bold">
                       🏎️
                     </div>
                     <div>
@@ -313,7 +313,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0 font-bold">
                       🚗
                     </div>
                     <div>
@@ -323,7 +323,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0 font-bold">
                       📅
                     </div>
                     <div>
@@ -333,7 +333,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0 font-bold">
                       ⛽
                     </div>
                     <div>
@@ -343,7 +343,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0 font-bold">
                       🛣️
                     </div>
                     <div>
@@ -353,7 +353,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 font-bold">
+                    <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0 font-bold">
                       📍
                     </div>
                     <div>
@@ -365,7 +365,7 @@ export default function OmiiListingDetailPage({
               ) : (
                 <>
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                       <Home size={20} />
                     </div>
                     <div>
@@ -375,7 +375,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                       <Maximize size={20} />
                     </div>
                     <div>
@@ -385,7 +385,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                       <Bed size={20} />
                     </div>
                     <div>
@@ -395,7 +395,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                       <Bath size={20} />
                     </div>
                     <div>
@@ -405,7 +405,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                       <MapPin size={20} />
                     </div>
                     <div>
@@ -415,7 +415,7 @@ export default function OmiiListingDetailPage({
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center shrink-0">
+                    <div className="w-10 h-10 rounded-xl bg-[#fff6ef] text-[#fea74f] flex items-center justify-center shrink-0">
                       <Globe size={20} />
                     </div>
                     <div>
@@ -469,7 +469,7 @@ export default function OmiiListingDetailPage({
                 <button
                   type="button"
                   onClick={() => setShowMoreInfo(!showMoreInfo)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#2563EB] hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#108474] hover:underline cursor-pointer"
                 >
                   <span>{showMoreInfo ? (lang === 'es' ? 'Mostrar menos' : 'Arată mai puțin') : (lang === 'es' ? 'Mostrar más' : 'Arată mai mult')}</span>
                   {showMoreInfo ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -533,7 +533,7 @@ export default function OmiiListingDetailPage({
                 <button
                   type="button"
                   onClick={() => setShowMoreAmenities(!showMoreAmenities)}
-                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#2563EB] hover:underline cursor-pointer"
+                  className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#108474] hover:underline cursor-pointer"
                 >
                   <span>{showMoreAmenities ? (lang === 'es' ? 'Mostrar menos' : 'Arată mai puțin') : (lang === 'es' ? 'Mostrar más' : 'Arată mai mult')}</span>
                   {showMoreAmenities ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
@@ -605,7 +605,7 @@ export default function OmiiListingDetailPage({
               {/* Stat Metrics Grid */}
               <div className="pt-4 border-t border-gray-100 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0">
                     <Calendar size={20} />
                   </div>
                   <div>
@@ -615,7 +615,7 @@ export default function OmiiListingDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0">
                     <Building size={20} />
                   </div>
                   <div>
@@ -625,7 +625,7 @@ export default function OmiiListingDetailPage({
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#eef7f5] text-[#108474] flex items-center justify-center shrink-0">
                     <ThumbsUp size={20} />
                   </div>
                   <div>
@@ -658,7 +658,7 @@ export default function OmiiListingDetailPage({
 
               {/* Price Comparison Box */}
               <div className="bg-gray-100/70 p-3.5 rounded-2xl flex items-center gap-3">
-                <span className="bg-[#10B981] text-white font-extrabold text-[11px] px-2.5 py-1 rounded-md tracking-wider uppercase shadow-2xs">
+                <span className="bg-[#008060] text-white font-extrabold text-[11px] px-2.5 py-1 rounded-md tracking-wider uppercase shadow-2xs">
                   EXCELENTE
                 </span>
                 <span className="text-xs font-bold text-gray-700">
@@ -670,7 +670,7 @@ export default function OmiiListingDetailPage({
               <button
                 type="button"
                 onClick={() => alert(lang === 'es' ? 'Mensaje enviado a la inmobiliaria.' : 'Mesaj trimis agenției imobiliare.')}
-                className="w-full py-3.5 px-4 bg-[#2563EB] hover:bg-blue-700 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 bg-[#108474] hover:bg-[#0e7063] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
               >
                 <Mail size={18} />
                 <span>{lang === 'es' ? 'Enviar mensaje' : 'Trimite mesaj'}</span>
@@ -679,7 +679,7 @@ export default function OmiiListingDetailPage({
               {/* imoob Green Call Agent Button */}
               <a 
                 href="tel:+40721890123"
-                className="w-full py-3.5 px-4 bg-[#22c55e] hover:bg-[#16a34a] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 bg-[#008060] hover:bg-[#006c51] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2"
               >
                 <Phone size={18} />
                 <span>{lang === 'es' ? 'Llamar al agente' : 'Apelează agentul'}</span>

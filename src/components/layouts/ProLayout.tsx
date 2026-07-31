@@ -36,8 +36,8 @@ export default function ProLayout({ lang = 'ro', onSelectListing }: ProLayoutPro
     { key: 'catAll', name: t.catAll, icon: Grid, color: 'bg-gray-800' },
     { key: 'catBuySell', name: t.catBuySell, icon: ShoppingBag, color: 'bg-[#5a55d1]' },
     { key: 'catVehicles', name: t.catVehicles, icon: CarFront, color: 'bg-[#ef4444]' },
-    { key: 'catRealEstate', name: t.catRealEstate, icon: Building2, color: 'bg-[#22c55e]' },
-    { key: 'catJobs', name: t.catJobs, icon: Briefcase, color: 'bg-[#7c3aed]' },
+    { key: 'catRealEstate', name: t.catRealEstate, icon: Building2, color: 'bg-[#008060]' },
+    { key: 'catJobs', name: t.catJobs, icon: Briefcase, color: 'bg-[#108474]' },
     { key: 'catBusiness', name: t.catBusiness, icon: Store, color: 'bg-[#f97316]' },
     { key: 'catServices', name: t.catServices, icon: Wrench, color: 'bg-[#3b82f6]' },
     { key: 'catCourses', name: t.catCourses, icon: GraduationCap, color: 'bg-[#ec4899]' },
@@ -67,7 +67,7 @@ export default function ProLayout({ lang = 'ro', onSelectListing }: ProLayoutPro
                 Categorías
               </h2>
               {selectedCategory && (
-                <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-100">
+                <span className="text-xs font-bold text-[#108474] bg-[#eef7f5] px-2.5 py-0.5 rounded-full border border-[#bce0da]">
                   {currentSelectedCategoryName}
                 </span>
               )}

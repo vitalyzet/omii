@@ -28,7 +28,7 @@ const CATEGORIES = [
     id: 'Bazar & Cumpărături', 
     nameRo: 'Bazar & Cumpărături', 
     nameEs: 'Compraventa', 
-    color: 'bg-[#7B3FF2]',
+    color: 'bg-[#108474]',
     subcategories: [
       { nameRo: 'Telefoane & Tablete', nameEs: 'Teléfonos y Tabletas' },
       { nameRo: 'Laptopuri & Calculatoare', nameEs: 'Portátiles y PC' },
@@ -292,7 +292,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
         </button>
 
         {/* Section Title */}
-        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#005944] tracking-tight mb-6">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-[#108474] tracking-tight mb-6">
           {lang === 'ro' ? 'Selectează categoria' : 'Selecciona categoría'}
         </h1>
 
@@ -321,7 +321,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                     }}
                     className={`flex items-center justify-between p-3 rounded-xl transition-all cursor-pointer group ${
                       isSelected || isExpanded
-                        ? 'bg-indigo-50/70 shadow-2xs font-bold' 
+                        ? 'bg-[#eef7f5]/70 shadow-2xs font-bold' 
                         : 'hover:bg-gray-50/80'
                     }`}
                   >
@@ -333,7 +333,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                           <ChevronRight size={16} strokeWidth={2.5} />
                         )}
                       </div>
-                      <span className={`text-sm sm:text-base font-semibold ${isSelected || isExpanded ? 'text-[#3E42A5] font-bold' : 'text-[#5054B4] hover:text-[#3E42A5]'}`}>
+                      <span className={`text-sm sm:text-base font-semibold ${isSelected || isExpanded ? 'text-[#108474] font-bold' : 'text-[#5054B4] hover:text-[#108474]'}`}>
                         {displayName}
                       </span>
                     </div>
@@ -356,8 +356,8 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                             }}
                             className={`text-sm font-semibold transition-all cursor-pointer py-1 ${
                               isSubSelected 
-                                ? 'text-[#3E42A5] font-extrabold underline' 
-                                : 'text-[#5054B4] hover:text-[#3E42A5] hover:underline'
+                                ? 'text-[#108474] font-extrabold underline' 
+                                : 'text-[#5054B4] hover:text-[#108474] hover:underline'
                             }`}
                           >
                             {subcatName}
@@ -400,7 +400,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
             ) : success ? (
               /* Success Screen */
               <div className="py-12 text-center space-y-4 flex flex-col items-center justify-center">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-xs">
+                <div className="w-16 h-16 rounded-full bg-[#b3d9cf] text-[#00664d] flex items-center justify-center mx-auto shadow-xs">
                   <CheckCircle2 size={40} />
                 </div>
                 <h2 className="text-2xl font-black text-gray-900">
@@ -420,7 +420,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                 <div className="pb-4 border-b border-gray-100">
                   <h2 className="text-xl font-extrabold text-[#5054B4]">
                     {lang === 'es' ? selectedCategoryObj?.nameEs : selectedCategoryObj?.nameRo}
-                    {selectedSubcat && <span className="text-[#3E42A5]"> &gt; {selectedSubcat}</span>}
+                    {selectedSubcat && <span className="text-[#108474]"> &gt; {selectedSubcat}</span>}
                   </h2>
                   <p className="text-xs text-gray-400 mt-1 font-medium">
                     {selectedCatId === 'Auto & Moto' 
@@ -475,7 +475,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                       value={tempImageUrl}
                       onChange={(e) => setTempImageUrl(e.target.value)}
                       placeholder={lang === 'es' ? 'Pega el enlace URL de la imagen aquí...' : 'Adaugă link-ul foto (URL)...'}
-                      className="flex-1 px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      className="flex-1 px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-lg text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                     />
                     <button
                       type="button"
@@ -505,13 +505,13 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                         value={locationInput}
                         onChange={(e) => setLocationInput(e.target.value)}
                         placeholder={lang === 'es' ? 'Código postal, ciudad...' : 'Cod poștal, oraș...'}
-                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                       />
                     </div>
                     <button
                       type="button"
                       onClick={() => setLocationInput('București')}
-                      className="px-3.5 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl border border-blue-200/60 transition-colors flex items-center gap-1.5 cursor-pointer"
+                      className="px-3.5 py-2.5 bg-[#eef7f5] hover:bg-[#bce0da] text-[#0e7063] font-bold text-xs rounded-xl border border-[#bce0da]/60 transition-colors flex items-center gap-1.5 cursor-pointer"
                     >
                       <Navigation size={14} />
                       <span>{lang === 'es' ? 'Localizar' : 'Localizează'}</span>
@@ -540,7 +540,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                       <select
                         value={year}
                         onChange={(e) => setYear(e.target.value)}
-                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                       >
                         {Array.from({ length: 45 }).map((_, i) => {
                           const y = (2026 - i).toString();
@@ -556,7 +556,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                       <select
                         value={combustibil}
                         onChange={(e) => setCombustibil(e.target.value)}
-                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                       >
                         <option value="Gasolina">Gasolina / Benzină</option>
                         <option value="Diésel">Diésel / Motorină</option>
@@ -579,7 +579,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                           value={kilometros}
                           onChange={(e) => setKilometros(e.target.value)}
                           placeholder="45000"
-                          className="w-full pr-8 pl-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                          className="w-full pr-8 pl-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                         />
                         <span className="absolute right-3 top-1/2 -translate-y-1/2 text-xs font-bold text-gray-400">km</span>
                       </div>
@@ -595,7 +595,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         placeholder="14500"
-                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                       />
                     </div>
 
@@ -606,7 +606,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                       <select
                         value={currency}
                         onChange={(e) => setCurrency(e.target.value)}
-                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                       >
                         <option value="EUR">EUR (€ Euro)</option>
                         <option value="RON">RON (Lei)</option>
@@ -623,7 +623,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                     <select
                       value={condition}
                       onChange={(e) => setCondition(e.target.value)}
-                      className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                      className="w-full px-3 py-2 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                     >
                       <option value="Usado">Usado / Second-Hand</option>
                       <option value="Nuevo">Nuevo / Nou</option>
@@ -654,7 +654,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder={lang === 'es' ? 'Título del anuncio...' : 'Titlul anunțului...'}
-                    className="w-full px-3.5 py-2.5 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-3.5 py-2.5 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                   />
                 </div>
 
@@ -680,7 +680,7 @@ export default function OmiiPublishAdPage({ onBackToHome, lang = 'ro' }: OmiiPub
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder={lang === 'es' ? 'Escribe aquí la descripción detallada...' : 'Scrie aici descrierea detaliată...'}
-                    className="w-full p-3 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full p-3 bg-gray-50/80 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20"
                   />
                 </div>
 

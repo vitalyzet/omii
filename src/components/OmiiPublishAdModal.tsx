@@ -32,11 +32,11 @@ interface OmiiPublishAdModalProps {
 
 const CATEGORIES = [
   { id: 'Auto & Moto', name: 'Auto & Moto', icon: CarFront, color: 'bg-red-500', collection: 'anuncios_auto' },
-  { id: 'Imobiliare', name: 'Imobiliare', icon: Building2, color: 'bg-emerald-500', collection: 'anuncios' },
+  { id: 'Imobiliare', name: 'Imobiliare', icon: Building2, color: 'bg-[#008060]', collection: 'anuncios' },
   { id: 'Locuri de muncă', name: 'Locuri de muncă', icon: Briefcase, color: 'bg-purple-500', collection: 'anuncios' },
-  { id: 'Bazar & Cumpărături', name: 'Bazar & Cumpărături', icon: ShoppingBag, color: 'bg-indigo-500', collection: 'anuncios' },
-  { id: 'Afaceri & Firme', name: 'Afaceri & Firme', icon: Store, color: 'bg-orange-500', collection: 'anuncios' },
-  { id: 'Servicii', name: 'Servicii', icon: Wrench, color: 'bg-blue-500', collection: 'anuncios' },
+  { id: 'Bazar & Cumpărături', name: 'Bazar & Cumpărături', icon: ShoppingBag, color: 'bg-[#108474]', collection: 'anuncios' },
+  { id: 'Afaceri & Firme', name: 'Afaceri & Firme', icon: Store, color: 'bg-[#fff6ef]0', collection: 'anuncios' },
+  { id: 'Servicii', name: 'Servicii', icon: Wrench, color: 'bg-[#eef7f5]0', collection: 'anuncios' },
   { id: 'Cursuri & Instruire', name: 'Cursuri & Instruire', icon: GraduationCap, color: 'bg-pink-500', collection: 'anuncios' },
   { id: 'Timp liber', name: 'Timp liber', icon: Coffee, color: 'bg-yellow-500', collection: 'anuncios' },
 ];
@@ -210,7 +210,7 @@ export default function OmiiPublishAdModal({
               <h2 className="text-lg font-black tracking-tight">
                 {lang === 'ro' ? 'Publică un Anunț Nou' : 'Publicar un Nuevo Anuncio'}
               </h2>
-              <p className="text-xs text-indigo-200">
+              <p className="text-xs text-[#bce0da]">
                 {step === 1 
                   ? (lang === 'ro' ? 'Pasul 1: Alege categoria anunțului' : 'Paso 1: Elige la categoría')
                   : (lang === 'ro' ? 'Pasul 2: Completează detaliile anunțului' : 'Paso 2: Completa los detalles')}
@@ -229,7 +229,7 @@ export default function OmiiPublishAdModal({
         {/* Success Overlay */}
         {success ? (
           <div className="p-12 text-center space-y-4 flex flex-col items-center justify-center flex-1">
-            <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-md">
+            <div className="w-16 h-16 rounded-full bg-[#b3d9cf] text-[#00664d] flex items-center justify-center mx-auto shadow-md">
               <CheckCircle2 size={36} />
             </div>
             <h3 className="text-2xl font-extrabold text-gray-900">
@@ -271,7 +271,7 @@ export default function OmiiPublishAdModal({
                         }}
                         className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all cursor-pointer gap-2.5 text-center ${
                           isSelected
-                            ? 'border-blue-600 bg-blue-50/70 ring-2 ring-blue-500/20 shadow-xs'
+                            ? 'border-[#108474] bg-[#eef7f5]/70 ring-2 ring-[#eef7f5]0/20 shadow-xs'
                             : 'border-gray-200 hover:border-gray-300 bg-gray-50/60 hover:bg-gray-100/60'
                         }`}
                       >
@@ -290,7 +290,7 @@ export default function OmiiPublishAdModal({
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2"
+                    className="px-6 py-3 bg-[#108474] hover:bg-[#0e7063] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center gap-2"
                   >
                     <span>{lang === 'ro' ? 'Continuă' : 'Continuar'}</span>
                     <ArrowRight size={16} />
@@ -320,7 +320,7 @@ export default function OmiiPublishAdModal({
                         ? 'ex. Apartament 2 Camere Decomandat Herăstrău'
                         : 'ex. Titlu reprezentativ pentru anunț'
                     }
-                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    className="w-full px-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                   />
                 </div>
 
@@ -386,7 +386,7 @@ export default function OmiiPublishAdModal({
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
                         placeholder="ex. 12500"
-                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                       />
                     </div>
                   </div>
@@ -400,7 +400,7 @@ export default function OmiiPublishAdModal({
                       <select
                         value={location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                        className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                       >
                         {ROMANIAN_CITIES.map(city => (
                           <option key={city} value={city}>{city}</option>
@@ -422,7 +422,7 @@ export default function OmiiPublishAdModal({
                       value={imageUrl}
                       onChange={(e) => setImageUrl(e.target.value)}
                       placeholder="https://images.unsplash.com/..."
-                      className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                      className="w-full pl-9 pr-3.5 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                     />
                   </div>
                 </div>
@@ -437,7 +437,7 @@ export default function OmiiPublishAdModal({
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder={lang === 'ro' ? 'Oferă detalii suplimentare despre starea produsului, dotări...' : 'Añade detalles sobre el estado, equipamiento...'}
-                    className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    className="w-full p-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-medium text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                   />
                 </div>
 
@@ -446,7 +446,7 @@ export default function OmiiPublishAdModal({
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
+                    className="w-full py-3.5 bg-[#00664d] hover:bg-emerald-700 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-70"
                   >
                     {loading ? (
                       <Loader2 size={18} className="animate-spin" />

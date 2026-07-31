@@ -164,7 +164,7 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
             <h2 className="text-xl sm:text-2xl font-extrabold text-gray-900 tracking-tight">
               {categoryDisplayName}
             </h2>
-            <span className="bg-indigo-50 text-indigo-700 text-xs font-bold px-2.5 py-1 rounded-full border border-indigo-100">
+            <span className="bg-[#eef7f5] text-[#0e7063] text-xs font-bold px-2.5 py-1 rounded-full border border-[#bce0da]">
               {filteredListings.length} {filteredListings.length === 1 ? 'anunț' : 'anunțuri'}
             </span>
           </div>
@@ -172,7 +172,7 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
           {searchQuery && (
             <button 
               onClick={() => setSearchQuery('')}
-              className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1 hover:underline cursor-pointer"
+              className="text-xs font-semibold text-[#108474] hover:text-[#0a5248] flex items-center gap-1 hover:underline cursor-pointer"
             >
               <FilterX size={13} /> {t.resetSearch}
             </button>
@@ -187,7 +187,7 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder={t.searchPlaceholder}
-            className="w-full pl-10 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all shadow-2xs"
+            className="w-full pl-10 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#108474]/20 focus:border-[#108474] transition-all shadow-2xs"
           />
           {searchQuery && (
             <button 
@@ -238,7 +238,7 @@ export default function OmiiListingGrid({ selectedCategory, viewMode = 'grid', l
             {searchQuery && (
               <button 
                 onClick={() => setSearchQuery('')}
-                className="bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-sm px-5 py-2.5 rounded-xl transition-colors shadow-sm cursor-pointer"
+                className="bg-[#108474] hover:bg-[#0e7063] text-white font-extrabold text-sm px-5 py-2.5 rounded-xl transition-colors shadow-sm cursor-pointer"
               >
                 Șterge căutarea
               </button>

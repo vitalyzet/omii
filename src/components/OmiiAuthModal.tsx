@@ -175,7 +175,7 @@ export default function OmiiAuthModal({
             {mode === 'register' && (lang === 'ro' ? 'Creează un cont nou' : 'Crear una cuenta nueva')}
             {mode === 'forgot' && (lang === 'ro' ? 'Resetare parolă' : 'Restablecer contraseña')}
           </h2>
-          <p className="text-xs text-blue-200 mt-1 font-medium">
+          <p className="text-xs text-[#bce0da] mt-1 font-medium">
             {lang === 'ro' ? 'Accesează anunțurile și profilul tău Omii' : 'Accede a tus anuncios y perfil de Omii'}
           </p>
         </div>
@@ -221,8 +221,8 @@ export default function OmiiAuthModal({
 
           {/* Success Banner */}
           {successMsg && (
-            <div className="bg-emerald-50 text-emerald-800 border border-emerald-200 p-3 rounded-2xl text-xs font-semibold flex items-center gap-2.5">
-              <CheckCircle2 size={16} className="shrink-0 text-emerald-600" />
+            <div className="bg-[#e5f2ef] text-emerald-800 border border-emerald-200 p-3 rounded-2xl text-xs font-semibold flex items-center gap-2.5">
+              <CheckCircle2 size={16} className="shrink-0 text-[#00664d]" />
               <span>{successMsg}</span>
             </div>
           )}
@@ -243,7 +243,7 @@ export default function OmiiAuthModal({
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder={lang === 'ro' ? 'ex. Alex Popescu' : 'ej. Alex Popescu'}
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                   />
                 </div>
               </div>
@@ -262,7 +262,7 @@ export default function OmiiAuthModal({
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="nume@domeniu.com"
-                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                  className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                 />
               </div>
             </div>
@@ -278,7 +278,7 @@ export default function OmiiAuthModal({
                     <button 
                       type="button"
                       onClick={() => switchMode('forgot')}
-                      className="text-[11px] font-bold text-blue-600 hover:underline cursor-pointer"
+                      className="text-[11px] font-bold text-[#108474] hover:underline cursor-pointer"
                     >
                       {lang === 'ro' ? 'Ai uitat parola?' : '¿Olvidaste tu contraseña?'}
                     </button>
@@ -292,7 +292,7 @@ export default function OmiiAuthModal({
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl text-sm font-semibold text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#eef7f5]0/20 focus:border-[#108474] transition-all"
                   />
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function OmiiAuthModal({
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed mt-2"
+              className="w-full py-3 bg-[#108474] hover:bg-[#0e7063] active:scale-[0.99] text-white font-extrabold text-sm rounded-xl transition-all cursor-pointer shadow-md flex items-center justify-center gap-2 disabled:opacity-75 disabled:cursor-not-allowed mt-2"
             >
               {loading ? (
                 <Loader2 size={18} className="animate-spin" />
@@ -352,7 +352,7 @@ export default function OmiiAuthModal({
             <button
               type="button"
               onClick={() => switchMode('login')}
-              className="w-full text-center text-xs font-bold text-blue-600 hover:underline cursor-pointer pt-1"
+              className="w-full text-center text-xs font-bold text-[#108474] hover:underline cursor-pointer pt-1"
             >
               ← {lang === 'ro' ? 'Înapoi la autentificare' : 'Volver al inicio de sesión'}
             </button>

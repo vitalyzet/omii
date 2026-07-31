@@ -16,9 +16,9 @@ export default function OmiiSearchBar() {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <div className="flex items-center space-x-2 text-blue-600">
-          <Search size={20} className="cursor-pointer hover:text-blue-800" />
-          {keyword && <X size={20} className="cursor-pointer hover:text-blue-800" onClick={() => setKeyword('')} />}
+        <div className="flex items-center space-x-2 text-[#108474]">
+          <Search size={20} className="cursor-pointer hover:text-[#0a5248]" />
+          {keyword && <X size={20} className="cursor-pointer hover:text-[#0a5248]" onClick={() => setKeyword('')} />}
         </div>
       </div>
 
@@ -34,9 +34,9 @@ export default function OmiiSearchBar() {
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
-        <div className="flex items-center space-x-2 text-blue-600">
-          <MapPin size={20} className="cursor-pointer hover:text-blue-800" />
-          {location && <X size={20} className="cursor-pointer hover:text-blue-800" onClick={() => setLocation('')} />}
+        <div className="flex items-center space-x-2 text-[#108474]">
+          <MapPin size={20} className="cursor-pointer hover:text-[#0a5248]" />
+          {location && <X size={20} className="cursor-pointer hover:text-[#0a5248]" onClick={() => setLocation('')} />}
         </div>
       </div>
 

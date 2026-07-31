@@ -55,13 +55,13 @@ export default function OmiiUserDropdown({ isOpen, onClose, lang = 'ro' }: OmiiU
                 }}
                 className={`relative w-full flex items-center justify-between px-4 py-2.5 text-left transition-colors cursor-pointer group ${
                   isActive 
-                    ? 'bg-blue-50/40 text-gray-900 font-bold' 
+                    ? 'bg-[#eef7f5]/40 text-gray-900 font-bold' 
                     : 'hover:bg-gray-50 text-gray-700 font-medium'
                 }`}
               >
                 {/* Active Indicator Bar on Left */}
                 {isActive && (
-                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3.5px] h-6 bg-blue-600 rounded-r-md" />
+                  <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3.5px] h-6 bg-[#108474] rounded-r-md" />
                 )}
 
                 {/* Left Icon + Text */}

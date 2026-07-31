@@ -24,8 +24,8 @@ export default function OmiiSidebar({ selectedCategory, onSelectCategory, lang =
   const categories = [
     { key: 'catBuySell', name: t.catBuySell, icon: ShoppingBag, color: 'bg-[#5a55d1]' },
     { key: 'catVehicles', name: t.catVehicles, icon: CarFront, color: 'bg-[#ef4444]' },
-    { key: 'catRealEstate', name: t.catRealEstate, icon: Building2, color: 'bg-[#22c55e]' },
-    { key: 'catJobs', name: t.catJobs, icon: Briefcase, color: 'bg-[#7c3aed]' },
+    { key: 'catRealEstate', name: t.catRealEstate, icon: Building2, color: 'bg-[#008060]' },
+    { key: 'catJobs', name: t.catJobs, icon: Briefcase, color: 'bg-[#108474]' },
     { key: 'catBusiness', name: t.catBusiness, icon: Store, color: 'bg-[#f97316]' },
     { key: 'catServices', name: t.catServices, icon: Wrench, color: 'bg-[#3b82f6]' },
     { key: 'catCourses', name: t.catCourses, icon: GraduationCap, color: 'bg-[#ec4899]' },

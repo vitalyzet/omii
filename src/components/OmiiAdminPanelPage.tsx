@@ -226,26 +226,26 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
           <div className="flex items-center gap-4">
             <button 
               onClick={onBackToHome}
-              className="flex items-center gap-2 text-gray-600 hover:text-blue-600 font-semibold text-sm transition-colors py-1.5 px-3 rounded-xl hover:bg-gray-100 cursor-pointer"
+              className="flex items-center gap-2 text-gray-600 hover:text-[#108474] font-semibold text-sm transition-colors py-1.5 px-3 rounded-xl hover:bg-gray-100 cursor-pointer"
             >
               <ArrowLeft size={18} />
               <span>Înapoi la pagina principală</span>
             </button>
             <span className="text-gray-300">|</span>
             <div className="flex items-center gap-2">
-              <span className="bg-[#005944] text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-md">ADMIN</span>
+              <span className="bg-[#108474] text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-md">ADMIN</span>
               <h1 className="text-lg font-black text-gray-900 tracking-tight">Omii Control Center</h1>
             </div>
           </div>
 
           {/* Top Right Summary Bar matching User Panel */}
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#ebf3ff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs">
+            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#eef7f5] rounded-full border border-[#bce0da] text-sm font-extrabold text-[#108474] shadow-2xs">
               <img src="/credits.png" alt="Credite" className="w-5 h-5 object-contain" />
               <span>18.450 € Credite</span>
             </div>
 
-            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#ebf3ff] rounded-full border border-[#d6e6ff] text-sm font-extrabold text-[#005944] shadow-2xs">
+            <div className="flex items-center gap-2.5 px-4 py-1.5 bg-[#eef7f5] rounded-full border border-[#bce0da] text-sm font-extrabold text-[#108474] shadow-2xs">
               <img src="/karma.png" alt="Karma" className="w-5 h-5 object-contain" />
               <span>100% Sistem OK</span>
             </div>
@@ -256,7 +256,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
 
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-20 right-8 z-50 bg-[#005944] text-white px-5 py-3 rounded-2xl shadow-xl font-extrabold text-xs flex items-center gap-2 border border-emerald-400 animate-bounce">
+        <div className="fixed top-20 right-8 z-50 bg-[#108474] text-white px-5 py-3 rounded-2xl shadow-xl font-extrabold text-xs flex items-center gap-2 border border-emerald-400 animate-bounce">
           <span>{toastMessage}</span>
         </div>
       )}
@@ -274,13 +274,13 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                 alt="Alexandru B." 
                 className="w-13 h-13 rounded-full object-cover border-2 border-white shadow-xs"
               />
-              <span className="absolute bottom-0 right-0 bg-emerald-500 w-3.5 h-3.5 rounded-full border-2 border-white" title="Online" />
+              <span className="absolute bottom-0 right-0 bg-[#008060] w-3.5 h-3.5 rounded-full border-2 border-white" title="Online" />
             </div>
 
             <div className="min-w-0 space-y-1">
               <div className="flex items-center gap-2">
                 <h2 className="text-base font-bold text-gray-900 truncate">Alexandru B.</h2>
-                <span className="bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">
+                <span className="bg-[#eef7f5] text-[#108474] border border-[#bce0da] text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase">
                   Administrator Șef
                 </span>
               </div>
@@ -328,7 +328,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
           <div className="bg-white rounded-3xl p-4 border border-gray-200/80 shadow-2xs space-y-1">
             <span className="text-[11px] font-bold text-gray-400 uppercase">Utilizatori</span>
             <p className="text-2xl font-black text-gray-900">1.420</p>
-            <span className="text-[11px] font-bold text-emerald-600 flex items-center gap-1">+12% luna aceasta</span>
+            <span className="text-[11px] font-bold text-[#00664d] flex items-center gap-1">+12% luna aceasta</span>
           </div>
 
           <div className="bg-white rounded-3xl p-4 border border-gray-200/80 shadow-2xs space-y-1">
@@ -346,7 +346,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
           <div className="bg-white rounded-3xl p-4 border border-gray-200/80 shadow-2xs space-y-1">
             <span className="text-[11px] font-bold text-gray-400 uppercase">Venituri Credite</span>
             <p className="text-2xl font-black text-gray-900">18.450 €</p>
-            <span className="text-[11px] font-bold text-emerald-600">+8.5% azi</span>
+            <span className="text-[11px] font-bold text-[#00664d]">+8.5% azi</span>
           </div>
 
           <div className="bg-white rounded-3xl p-4 border border-gray-200/80 shadow-2xs space-y-1 col-span-2 md:col-span-1">
@@ -376,13 +376,13 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                       onClick={() => setActiveAdminTab(item.id as any)}
                       className={`relative w-full flex items-center justify-between px-5 py-3.5 text-left transition-colors cursor-pointer group ${
                         isActive 
-                          ? 'bg-[#ebf3ff] text-[#005944] font-bold border-y border-[#d6e6ff]/60' 
+                          ? 'bg-[#eef7f5] text-[#108474] font-bold border-y border-[#bce0da]/60' 
                           : 'hover:bg-gray-50 text-gray-700 font-medium'
                       }`}
                     >
                       {/* Active Left Indicator Bar */}
                       {isActive && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-7 bg-[#005944] rounded-r-md" />
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-7 bg-[#108474] rounded-r-md" />
                       )}
 
                       <div className="flex items-center gap-3.5">
@@ -414,7 +414,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
               <div className="space-y-4 font-sans">
                 <div className="flex items-center justify-between pb-2 border-b border-gray-100">
                   <h3 className="font-extrabold text-base text-gray-900">Anunțuri Active în Platformă</h3>
-                  <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold">
+                  <span className="bg-[#e5f2ef] text-emerald-700 border border-emerald-200 px-3 py-1 rounded-full text-xs font-bold">
                     3.850 Anunțuri
                   </span>
                 </div>
@@ -479,7 +479,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                         {/* Reactivate Button */}
                         <button
                           onClick={() => handleReactivateAd(ad.id)}
-                          className="flex items-center gap-1.5 px-4 py-2.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-2xl text-xs font-black transition-all cursor-pointer shadow-2xs hover:scale-105 active:scale-95"
+                          className="flex items-center gap-1.5 px-4 py-2.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-2xl text-xs font-black transition-all cursor-pointer shadow-2xs hover:scale-105 active:scale-95"
                           title="Prelungește valabilitatea cu încă 30 de zile"
                         >
                           <RefreshCw size={14} className="animate-spin-slow" />
@@ -513,13 +513,13 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                           onClick={() => setAdsFilter(f.id as any)}
                           className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                             isFActive 
-                              ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff] shadow-2xs font-extrabold' 
+                              ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da] shadow-2xs font-extrabold' 
                               : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200/80 font-medium'
                           }`}
                         >
                           <span>{f.label}</span>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                            isFActive ? 'bg-[#005944] text-white' : 'bg-gray-100 text-gray-500'
+                            isFActive ? 'bg-[#108474] text-white' : 'bg-gray-100 text-gray-500'
                           }`}>
                             {f.count}
                           </span>
@@ -533,7 +533,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                       onClick={() => setAdminViewMode('list')}
                       className={`p-2 rounded-xl transition-colors cursor-pointer ${
                         adminViewMode === 'list' 
-                          ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                          ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                           : 'text-gray-400 hover:text-gray-700'
                       }`}
                       title="Vedere listă"
@@ -544,7 +544,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                       onClick={() => setAdminViewMode('grid')}
                       className={`p-2 rounded-xl transition-colors cursor-pointer ${
                         adminViewMode === 'grid' 
-                          ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                          ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                           : 'text-gray-400 hover:text-gray-700'
                       }`}
                       title="Vedere grilă (2 pe rând)"
@@ -582,7 +582,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                                     ? 'bg-amber-50 text-amber-700 border-amber-200/80'
                                     : ad.status === 'flagged'
                                     ? 'bg-red-50 text-red-700 border-red-200/80'
-                                    : 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
+                                    : 'bg-[#e5f2ef] text-emerald-700 border-emerald-200/80'
                                 }`}>
                                   {ad.statusLabel}
                                 </span>
@@ -619,7 +619,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                               {ad.status !== 'active' && (
                                 <button 
                                   onClick={() => handleApproveAd(ad.id)}
-                                  className="flex items-center gap-1 px-3 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+                                  className="flex items-center gap-1 px-3 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs"
                                 >
                                   <img src="/publish.png" alt="Aprobă" className="w-3.5 h-3.5 object-contain" />
                                   <span>Aprobă</span>
@@ -665,13 +665,13 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                           onClick={() => setUserFilter(uf.id as any)}
                           className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                             isUActive 
-                              ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff] shadow-2xs font-extrabold' 
+                              ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da] shadow-2xs font-extrabold' 
                               : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200/80 font-medium'
                           }`}
                         >
                           <span>{uf.label}</span>
                           <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                            isUActive ? 'bg-[#005944] text-white' : 'bg-gray-100 text-gray-500'
+                            isUActive ? 'bg-[#108474] text-white' : 'bg-gray-100 text-gray-500'
                           }`}>
                             {uf.count}
                           </span>
@@ -688,7 +688,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                         placeholder="Caută utilizator..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        className="w-full pl-9 pr-4 py-1.5 bg-white border border-gray-200/80 rounded-2xl text-xs font-medium focus:outline-none focus:border-[#005944] shadow-2xs"
+                        className="w-full pl-9 pr-4 py-1.5 bg-white border border-gray-200/80 rounded-2xl text-xs font-medium focus:outline-none focus:border-[#108474] shadow-2xs"
                       />
                     </div>
 
@@ -697,7 +697,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                         onClick={() => setUserViewMode('cards')}
                         className={`p-2 rounded-xl transition-colors cursor-pointer ${
                           (userViewMode || 'cards') === 'cards' 
-                            ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                            ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                             : 'text-gray-400 hover:text-gray-700'
                         }`}
                         title="Vedere carduri"
@@ -708,7 +708,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                         onClick={() => setUserViewMode('table')}
                         className={`p-2 rounded-xl transition-colors cursor-pointer ${
                           userViewMode === 'table' 
-                            ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                            ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                             : 'text-gray-400 hover:text-gray-700'
                         }`}
                         title="Vedere tabelă"
@@ -739,7 +739,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                               <div className="flex items-center gap-3">
                                 <div className="relative shrink-0">
                                   <img src={usr.avatar} alt={usr.name} className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-xs" />
-                                  <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white" title="Online" />
+                                  <span className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-[#008060] rounded-full border-2 border-white" title="Online" />
                                 </div>
                                 <div className="min-w-0">
                                   <div className="flex items-center gap-1.5 flex-wrap">
@@ -751,9 +751,9 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
 
                               <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase shrink-0 ${
                                 usr.role === 'Admin' 
-                                  ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                                  ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                                   : usr.role === 'Dealer PRO'
-                                  ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                                  ? 'bg-[#eef7f5] text-[#0e7063] border border-[#bce0da]'
                                   : 'bg-gray-100 text-gray-700'
                               }`}>
                                 {usr.role}
@@ -766,7 +766,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                                 onClick={() => handleToggleUserVerification(usr.id)}
                                 className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
                                   usr.isVerified 
-                                    ? 'bg-emerald-50 text-emerald-700 border border-emerald-200/80 shadow-2xs' 
+                                    ? 'bg-[#e5f2ef] text-emerald-700 border border-emerald-200/80 shadow-2xs' 
                                     : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                                 }`}
                               >
@@ -792,7 +792,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                               </div>
                               <div>
                                 <span className="text-[10px] text-gray-400 font-bold uppercase">Credite Omii</span>
-                                <p className="font-black text-sm text-[#005944]">{usr.credits} pts</p>
+                                <p className="font-black text-sm text-[#108474]">{usr.credits} pts</p>
                               </div>
                             </div>
 
@@ -802,7 +802,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                           <div className="pt-3 border-t border-gray-100 flex items-center justify-between gap-2 text-xs">
                             <button 
                               onClick={() => handleGrantCredits(usr.id, 50)}
-                              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+                              className="flex items-center gap-1.5 px-3.5 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs"
                               title="Adaugă +50 Credite"
                             >
                               <img src="/credits.png" alt="Credite" className="w-4 h-4 object-contain" />
@@ -858,9 +858,9 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                                 <td className="py-3 px-3">
                                   <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-extrabold ${
                                     usr.role === 'Admin' 
-                                      ? 'bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff]' 
+                                      ? 'bg-[#eef7f5] text-[#108474] border border-[#bce0da]' 
                                       : usr.role === 'Dealer PRO'
-                                      ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                                      ? 'bg-[#eef7f5] text-[#0e7063] border border-[#bce0da]'
                                       : 'bg-gray-100 text-gray-700'
                                   }`}>
                                     {usr.role}
@@ -872,7 +872,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                                     onClick={() => handleToggleUserVerification(usr.id)}
                                     className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold cursor-pointer transition-colors ${
                                       usr.isVerified 
-                                        ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' 
+                                        ? 'bg-[#e5f2ef] text-emerald-700 border border-emerald-200' 
                                         : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
                                     }`}
                                   >
@@ -884,13 +884,13 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                                 <td className="py-3 px-3 font-bold text-gray-900">{usr.adsCount}</td>
 
                                 <td className="py-3 px-3">
-                                  <span className="font-black text-[#005944]">{usr.credits} pts</span>
+                                  <span className="font-black text-[#108474]">{usr.credits} pts</span>
                                 </td>
 
                                 <td className="py-3 px-3 text-right">
                                   <button 
                                     onClick={() => handleGrantCredits(usr.id, 50)}
-                                    className="px-3 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs"
+                                    className="px-3 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold transition-colors cursor-pointer shadow-2xs"
                                   >
                                     +50 Credite
                                   </button>
@@ -914,7 +914,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                     <h3 className="font-extrabold text-base text-gray-900">Mesaje Suport & Contact</h3>
                     <p className="text-xs text-gray-500 font-medium">Solicitări primite de la utilizatori și cumpărători</p>
                   </div>
-                  <span className="bg-[#ebf3ff] text-[#005944] border border-[#d6e6ff] px-3 py-1 rounded-full text-xs font-bold">
+                  <span className="bg-[#eef7f5] text-[#108474] border border-[#bce0da] px-3 py-1 rounded-full text-xs font-bold">
                     3 Solicitări Noi
                   </span>
                 </div>
@@ -932,7 +932,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                           <p className="text-xs text-gray-500">De la: {msg.name} ({msg.email}) • {msg.date}</p>
                         </div>
                       </div>
-                      <button className="px-4 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold shadow-2xs cursor-pointer">
+                      <button className="px-4 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold shadow-2xs cursor-pointer">
                         Răspunde
                       </button>
                     </div>
@@ -953,12 +953,12 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-200/70 text-center space-y-1">
                     <span className="text-[11px] font-bold text-gray-400 uppercase">Vizualizări Totale</span>
                     <p className="text-2xl font-black text-gray-900">142.800</p>
-                    <span className="text-xs text-emerald-600 font-bold">+18.4% vs luna trecută</span>
+                    <span className="text-xs text-[#00664d] font-bold">+18.4% vs luna trecută</span>
                   </div>
                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-200/70 text-center space-y-1">
                     <span className="text-[11px] font-bold text-gray-400 uppercase">Contacte Generație</span>
-                    <p className="text-2xl font-black text-[#005944]">12.450</p>
-                    <span className="text-xs text-emerald-600 font-bold">+10.2% conversie</span>
+                    <p className="text-2xl font-black text-[#108474]">12.450</p>
+                    <span className="text-xs text-[#00664d] font-bold">+10.2% conversie</span>
                   </div>
                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-200/70 text-center space-y-1">
                     <span className="text-[11px] font-bold text-gray-400 uppercase">Timp Mediu Site</span>
@@ -990,7 +990,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                           <p className="text-xs text-gray-500">{tx.plan} • {tx.date}</p>
                         </div>
                       </div>
-                      <span className="font-black text-[#005944] text-sm">{tx.amount}</span>
+                      <span className="font-black text-[#108474] text-sm">{tx.amount}</span>
                     </div>
                   ))}
                 </div>
@@ -1009,7 +1009,7 @@ export default function OmiiAdminPanelPage({ onBackToHome, lang = 'ro' }: OmiiAd
                   <div className="p-4 bg-gray-50 rounded-2xl border border-gray-200/70 space-y-3">
                     <h4 className="font-bold text-sm text-gray-900">Sitemap XML & Robots.txt</h4>
                     <p className="text-xs text-gray-500">Auto-generare zilnică a anunțurilor pentru Google / Bing</p>
-                    <button className="px-4 py-1.5 bg-[#ebf3ff] hover:bg-[#deebff] text-[#005944] border border-[#d6e6ff] rounded-full text-xs font-bold shadow-2xs cursor-pointer">
+                    <button className="px-4 py-1.5 bg-[#eef7f5] hover:bg-[#deebff] text-[#108474] border border-[#bce0da] rounded-full text-xs font-bold shadow-2xs cursor-pointer">
                       Regenerează Sitemap
                     </button>
                   </div>
@@ -1075,7 +1075,7 @@ function userAdsList(
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
                       <span className="font-extrabold text-sm text-[#111827]">{ad.title}</span>
-                      <span className="bg-[#eef6ff] text-[#2563eb] border border-[#dbeafe] text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <span className="bg-[#eef6ff] text-[#108474] border border-[#dbeafe] text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
                         <Car size={11} /> AUTO
                       </span>
                     </div>
@@ -1140,7 +1140,7 @@ function userAdsList(
               <td className="py-4 px-4 align-middle text-right">
                 <div className="flex items-center justify-end gap-3">
                   <button 
-                    className="p-1.5 text-[#3b82f6] hover:text-[#2563eb] hover:bg-[#eff6ff] rounded-xl transition-colors cursor-pointer"
+                    className="p-1.5 text-[#3b82f6] hover:text-[#108474] hover:bg-[#eff6ff] rounded-xl transition-colors cursor-pointer"
                     title="Vezi anunț"
                   >
                     <Eye size={19} />
@@ -1148,7 +1148,7 @@ function userAdsList(
                   
                   <button 
                     onClick={() => handleApproveAd(ad.id)}
-                    className="p-1.5 text-[#10b981] hover:text-[#059669] hover:bg-[#ecfdf5] rounded-xl transition-colors cursor-pointer"
+                    className="p-1.5 text-[#008060] hover:text-[#059669] hover:bg-[#ecfdf5] rounded-xl transition-colors cursor-pointer"
                     title="Aprobă"
                   >
                     <Check size={19} />
